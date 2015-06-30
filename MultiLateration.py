@@ -38,18 +38,17 @@ def generateData():
 	d_2 = distance(randPoint, (-.5, .5));
 	d_3 = distance(randPoint, (.5,.5));
 
-	t_1 = math.fabs(d_0-d_1)/speed;
+	t_1 = math.fabs(d_1-d_0)/speed;
 	t_2 = math.fabs(d_2-d_3)/speed;
 	left_First = d_0 < d_1;
 	print(randPoint);
 
-	return(t_1, t_2)
+	return(t_1, t_2, left_First)
 
 
 g = generateData();
-#print(FindCoordinate(g[0], g[1], g[2]));
+print(FindCoordinate(g[0], g[1], g[2]));
 
-print(g);
 
 	
 

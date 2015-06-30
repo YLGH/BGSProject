@@ -2,7 +2,7 @@ import math;
 import numpy;
 import random;
 
-a = 1;
+a = 2;
 b = 1;
 v = 4000;
 
@@ -11,7 +11,8 @@ def distance((x1,y1), (x2,y2)):
 	return math.sqrt(((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1)));
 
 def generateData():
-	randPoint = (random.uniform(0,a), random.uniform(0,b));
+	randPoint = (random.uniform(.1,.9*a), random.uniform(.1,.9*b));
+
 
 	d0 = distance(randPoint, (0,0));
 	d1 = distance(randPoint, (a,0));
@@ -60,30 +61,27 @@ def Gauss_NewtonSolve((x,y), first = False):
 		#find first iteration
 	#see Point
 
-	#if first:
-	#	guess = (.5,.5);
-	#	while(distance(guess, (x,y)) > 1.75):
-	#		guess = (random.uniform(0,a), random.uniform(0,b));
-	#	return Gauss_NewtonSolve(guess);
+	try:
+		Jr = (( dr1dx(x,y),dr1dy(x,y)), (dr2dx(x,y), dr2dy(x,y)), (dr3dx(x,y), dr3dy(x,y)) );
+		JrT = numpy.transpose(Jr);
 
-	Jr = (( dr1dx(x,y),dr1dy(x,y)), (dr2dx(x,y), dr2dy(x,y)), (dr3dx(x,y), dr3dy(x,y)) );
-	JrT = numpy.transpose(Jr);
+		JrTJr = numpy.dot(JrT, Jr);
 
-	JrTJr = numpy.dot(JrT, Jr);
-
-	JrTJr_i = numpy.linalg.inv(JrTJr);
+		JrTJr_i = numpy.linalg.inv(JrTJr);
 
 
-	second_term = numpy.dot(numpy.dot(JrTJr_i, JrT), r(x,y));
+		second_term = numpy.dot(numpy.dot(JrTJr_i, JrT), r(x,y));
 
 
-	if(distance(second_term, (0,0)) < .00005):
+		if(distance(second_term, (0,0)) < .00005):
+			return (x,y);
+		else:
+			return Gauss_NewtonSolve(numpy.subtract((x,y), second_term));
+	except LinAlgError:
 		return (x,y);
-	else:
-		return Gauss_NewtonSolve(numpy.subtract((x,y), second_term));
 
 
-print(Gauss_NewtonSolve((.5,.5), True));
+print(Gauss_NewtonSolve((1,1), True));
 
 
 
