@@ -27,9 +27,9 @@ if(s0_sensed || s1_sensed || s2_sensed || s3_sensed):
 			t[3] =  timer
 		}
 
-	timer end
+timer end
 
-	t[3] = t[3] - t[0];
-	t[2] = t[2] - t[0];
-	t[1] = t[1] - t[0];
-	t[0] = 0;
+t[3] = t[3] - t[0];
+t[2] = t[2] - t[0];
+t[1] = t[1] - t[0];
+t[0] = 0;
