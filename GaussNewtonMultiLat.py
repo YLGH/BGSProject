@@ -53,7 +53,7 @@ def Gauss_NewtonSolve((x,y)):
 
 	#Does the iteration of B(s+1) =  B(s) - J^{+}J^{t}r*B(s))
 
-	if(distance(second_term, (0,0)) < .001):
+	if(distance(second_term, (0,0)) < .002):
 		return (x,y);
 	else:
 		return Gauss_NewtonSolve(numpy.subtract((x,y), second_term));
