@@ -1,6 +1,9 @@
 from Xlib import X, display
-d = display.Display();
-s = d.screen();
-root = s.root;
-root.wrap_pointer(300,300);
-d.sync();
+import time
+
+def moveTo(x,y):
+	d = display.Display();
+	s = d.screen();
+	root = s.root;
+	root = root.warp_pointer(x,y);
+	d.sync()
