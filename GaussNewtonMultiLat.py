@@ -2,20 +2,20 @@ import math;
 import numpy;
 import random;
 
-
-
-a = 1.68;
-b = 1.05;
-v = 4000;
-
-screen_Width = 1680;
-screen_Height = 1050;
-
 #reading
-f = open('timeDifference.in', 'r');
-t1 = float(f.readline());
-t2 = float(f.readline());
-t3 = float(f.readline());
+f_settings = open('settings.in', 'r');
+a = float(f_settings.readline());
+b = float(f_settings.readline());
+v = int(f_settings.readline());
+screen_Width = int(f_settings.readline());
+screen_Height = int(f_settings.readline());
+
+
+f_time = open('timeDifference.in', 'r');
+t1 = float(f_time.readline());
+t2 = float(f_time.readline());
+t3 = float(f_time.readline());
+closest = int(f_time.readline());
 
 def dr1dx(x,y):
 	return (x-a)/math.sqrt((x-a)*(x-a)+y*y) - x/math.sqrt(x*x+y*y);
@@ -49,12 +49,11 @@ def Gauss_NewtonSolve((x,y)):
 	JrT = numpy.transpose(Jr);
 	JrTJr = numpy.dot(JrT, Jr);
 	JrTJr_i = numpy.linalg.inv(JrTJr);
-
 	second_term = numpy.dot(numpy.dot(JrTJr_i, JrT), r(x,y));
 
 	#Does the iteration of B(s+1) =  B(s) - J^{+}J^{t}r*B(s))
 
-	if(distance(second_term, (0,0)) < .00005):
+	if(distance(second_term, (0,0)) < .0005):
 		return (x,y);
 	else:
 		return Gauss_NewtonSolve(numpy.subtract((x,y), second_term));
@@ -62,10 +61,18 @@ def Gauss_NewtonSolve((x,y)):
 	#except LinAlgError:
 	#	return (x,y);
 
+if(closest == 0):
+	firstGuess = (.25*a, .25*b);
+elif(closest == 1):
+	firstGuess = (.75*a, .25*b);
+elif(closest == 2):
+	firstGuess = (.25*a, .75*b);
+else:
+	firstGuess = (.75*a, .75*b);
 
+s = Gauss_NewtonSolve(firstGuess);
+mouseLocation = (round(s[0]/a*screen_Width), round(s[1]/b*screen_Height));
 
-s = Gauss_NewtonSolve((.5,.5));
-mouseLocation = (s[0]/a*screen_Width, s[1]/b*screen_Height);
 print(s);
 print(mouseLocation);
 
