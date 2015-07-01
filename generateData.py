@@ -43,6 +43,7 @@ def generateData():
 		f.write(str(3) + "\n");
 	
 	f.write(str(g[1]));
+	f.close();
 
 
 

@@ -1,9 +1,13 @@
 from mouse import moveTo
-from generateData import generateData;
-generateData();
+from generateData import generateData;	
+from GaussNewtonMultiLat import getLocation
+import time
 
-from GaussNewtonMultiLat import getLocation, screen_Height
-p = getLocation();
-x = p[0];
-y = p[1];
-moveTo(x,screen_Height-y);
+for i in range(5):
+	generateData();
+
+	p = getLocation();
+	x = p[0];
+	y = p[1];
+	moveTo(x,y);
+	time.sleep(1);
