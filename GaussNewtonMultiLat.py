@@ -76,4 +76,7 @@ mouseLocation = (round(s[0]/a*screen_Width), round(s[1]/b*screen_Height));
 print(s);
 print(mouseLocation);
 
+def getLocation():
+	return mouseLocation;
+
 
