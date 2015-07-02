@@ -1,6 +1,6 @@
 import math;
 import numpy;
-import random;
+import serial;
 
 f_settings = open('settings.in', 'r');
 a = float(f_settings.readline());
@@ -9,12 +9,13 @@ v = int(f_settings.readline());
 screen_Width = int(f_settings.readline());
 screen_Height = int(f_settings.readline());
 
+ser = serial.Serial('/dev/ttyAMA0',115200,8);
+
 def getLocation():
-	f_time = open('timeDifference.in', 'r');
-	t1 = float(f_time.readline());
-	t2 = float(f_time.readline());
-	t3 = float(f_time.readline());
-	closest = int(f_time.readline());
+	read = map(int, ser.readline().split(" "));
+	t1 = (read[1] - read[0])/48000000;
+	t2 = (read[2] - read[0])/48000000;
+	t3 = (read[3] - read[0])/48000000;
 	
 	def dr1dx(x,y):
 		return (x-a)/math.sqrt((x-a)*(x-a)+y*y) - x/math.sqrt(x*x+y*y);
@@ -50,21 +51,17 @@ def getLocation():
 		second_term = numpy.dot(numpy.dot(JrTJr_i, JrT), r(x,y));
 	
 		#Does the iteration of B(s+1) =  B(s) - J^{+}J^{t}r*B(s))
-	
 		if(distance(second_term, (0,0)) < .002):
 			return (x,y);
 		else:
 			return Gauss_NewtonSolve(numpy.subtract((x,y), second_term));
-	
-	
 	#reading
 	
-
-	if(closest == 0):
+	if(read[0] == 0):
 		firstGuess = (.25*a, .25*b);
-	elif(closest == 1):
+	elif(read[1] == 1):
 		firstGuess = (.75*a, .25*b);
-	elif(closest == 2):
+	elif(read[2] == 2):
 		firstGuess = (.25*a, .75*b);
 	else:
 		firstGuess = (.75*a, .75*b);

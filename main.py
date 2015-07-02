@@ -1,13 +1,10 @@
-from mouse import moveTo
-from generateData import generateData;	
+from mouse import moveTo	
 from GaussNewtonMultiLat import getLocation
 import time
 
-for i in range(100):
-	generateData();
-
+while True:
 	p = getLocation();
 	x = p[0];
 	y = p[1];
 	moveTo(x,y);
-	time.sleep(.5);
+	
