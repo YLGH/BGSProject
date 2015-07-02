@@ -1,0 +1,16 @@
+import math;
+import numpy;
+import random;
+
+a = 1;
+v = 4000;
+
+def getLocation():
+	t1 = 0;
+	def solve():
+		return (a-v*t1)/2.0;
+	#reading
+	s = solve();
+	print(s);
+
+getLocation();	
