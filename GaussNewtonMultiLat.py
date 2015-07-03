@@ -13,10 +13,14 @@ ser = serial.Serial('/dev/ttyAMA0',115200,8);
 
 def getLocation():
 	read = map(int, ser.readline().split(" "));
-	t1 = (read[1] - read[0])/48000000;
-	t2 = (read[2] - read[0])/48000000;
-	t3 = (read[3] - read[0])/48000000;
+	#return read;
+	t1 = (read[1] - read[0])/48000000.0;
+	t2 = (read[2] - read[0])/48000000.0;
+	t3 = (read[3] - read[0])/48000000.0;
 	
+	print read;
+	#return [t1*1E6 ,t2*1E6 ,t3*1E6];
+
 	def dr1dx(x,y):
 		return (x-a)/math.sqrt((x-a)*(x-a)+y*y) - x/math.sqrt(x*x+y*y);
 	
@@ -48,6 +52,7 @@ def getLocation():
 		JrT = numpy.transpose(Jr);
 		JrTJr = numpy.dot(JrT, Jr);
 		JrTJr_i = numpy.linalg.inv(JrTJr);
+
 		second_term = numpy.dot(numpy.dot(JrTJr_i, JrT), r(x,y));
 	
 		#Does the iteration of B(s+1) =  B(s) - J^{+}J^{t}r*B(s))
@@ -59,17 +64,16 @@ def getLocation():
 	
 	if(read[0] == 0):
 		firstGuess = (.25*a, .25*b);
-	elif(read[1] == 1):
+	elif(read[1] == 0):
 		firstGuess = (.75*a, .25*b);
-	elif(read[2] == 2):
+	elif(read[2] == 0):
 		firstGuess = (.25*a, .75*b);
 	else:
 		firstGuess = (.75*a, .75*b);
 
 	s = Gauss_NewtonSolve(firstGuess);
 	mouseLocation = (round(s[0]/a*screen_Width), round(s[1]/b*screen_Height));
-	
-	print(s);
+	#return s;
 	return mouseLocation;
 
 
