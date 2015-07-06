@@ -1,0 +1,36 @@
+Lesson on Method of Steepest Descent <- Machine learning for estimating the residual along one line . Have them measure the slope of the tangent or just draw best fit line and find equation of it
+
+lab that has them hit it really hard and investigate TDOA is constant
+Investigate velocity of thing in medium
+	data collections/error estimations
+
+#Provide all C code
+
+Maybe skeleton of python
+
+Lesson on pythagorean theorem and distances in cartesian 
+
+Lesson on velocity, time distance relation
+
+Worksheets 
+
+——————————————
+
+Data collection from sensors
+Ask about what does hardware do
+
+Talk about general earthquake info s vs p wave
+
+—————————————————
+Brief python lessons that will teach them how to write basic functions/variables etc
+amount of copy pasta needing decreases for each lesson: in situ
+
+^ included at the end of each lesson 
+
+————————————————
+Lab that makes them find velocity in various mediums (metal, wood, plastic, glass, others?)
+
+—————————————————————
+Reading from sensors
+
+
