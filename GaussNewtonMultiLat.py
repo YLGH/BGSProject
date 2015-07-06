@@ -17,9 +17,9 @@ def getLocation():
 	t1 = (read[1] - read[0])/48000000.0;
 	t2 = (read[2] - read[0])/48000000.0;
 	t3 = (read[3] - read[0])/48000000.0;
+	#Cycles divided by megahertz
 	
 	print read;
-	#return [t1*1E6 ,t2*1E6 ,t3*1E6];
 
 	def dr1dx(x,y):
 		return (x-a)/math.sqrt((x-a)*(x-a)+y*y) - x/math.sqrt(x*x+y*y);

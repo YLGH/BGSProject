@@ -13,4 +13,5 @@ def moveTo(x,y):
 
 def click(x,y):
 	mouse = PyMouse();
-	mouse.click(x, screen_Height-y);
+	mouse.click(x, screen_Height-y); 
+	#Has to flip since I defined 0,0 as the bottom left
