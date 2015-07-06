@@ -54,13 +54,11 @@ def getLocation():
 		JrTJr_i = numpy.linalg.inv(JrTJr);
 
 		second_term = numpy.dot(numpy.dot(JrTJr_i, JrT), r(x,y));
-	
 		#Does the iteration of B(s+1) =  B(s) - J^{+}J^{t}r*B(s))
 		if(distance(second_term, (0,0)) < .002):
 			return (x,y);
 		else:
 			return Gauss_NewtonSolve(numpy.subtract((x,y), second_term));
-	#reading
 	
 	if(read[0] == 0):
 		firstGuess = (.25*a, .25*b);
@@ -73,7 +71,6 @@ def getLocation():
 
 	s = Gauss_NewtonSolve(firstGuess);
 	mouseLocation = (round(s[0]/a*screen_Width), round(s[1]/b*screen_Height));
-	#return s;
 	return mouseLocation;
 
 

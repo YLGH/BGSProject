@@ -10,4 +10,7 @@ screen_Height = int(f_settings.readline());
 def moveTo(x,y):
 	mouse = PyMouse();
 	mouse.move(x,screen_Height-y);
-	#mouse.click(x,screen_Height-y);
+
+def click(x,y):
+	mouse = PyMouse();
+	mouse.click(x, screen_Height-y);
