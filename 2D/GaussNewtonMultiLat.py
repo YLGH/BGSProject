@@ -17,7 +17,7 @@ def getLocation():
 	t1 = (read[1] - read[0])/48000000.0;
 	t2 = (read[2] - read[0])/48000000.0;
 	t3 = (read[3] - read[0])/48000000.0;
-	#Cycles divided by megahertz
+	#Cycles divided by megahertz find TDOA
 	
 	print read;
 
