@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from obspy.core import read
+#from obspy.core import read
 import random
 #singlechannel = read('http://examples.obspy.org/COP.BHZ.DK.2009.050')
 
