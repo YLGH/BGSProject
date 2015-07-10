@@ -1,7 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from obspy.core import read
-singlechannel = read('http://examples.obspy.org/COP.BHZ.DK.2009.050')
+import random
+#singlechannel = read('http://examples.obspy.org/COP.BHZ.DK.2009.050')
 
 plt.ion()
 plt.show()
@@ -12,9 +13,10 @@ plt.ylim([-3000,3000])
 count = 0;
 i = 0;
 while True:
-	if(i == 400):
+	if(i == 1000):
 		break;
-	y = singlechannel[0].data[i];
+	#y = singlechannel[0].data[i];
+	y = random.uniform(-2500,2500);
 	plt.scatter(i, y, marker = '.')
 	plt.draw()
 
