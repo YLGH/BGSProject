@@ -24,13 +24,11 @@ y=list()
 i = 0;
 while(True):
     byteArray= spi.xfer([0xff]*2);
-    print "reached"
     y.append(byteArray[0] << 8 + byteArray[1]);
     if(i > 2000):
         y.pop(0);
         x_start += 1;
     	if(i%200 == 0):
-            print "reached"
             drawnow(makeFig);
     i+=1;
 
