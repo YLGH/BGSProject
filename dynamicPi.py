@@ -15,7 +15,8 @@ def makeFig():
     plt.plot(i, 0);
     plt.plot(i, 4096);
     plt.xlim(x_start, x_start+len(y));
-    plt.plot(xrange(x_start, x_start+len(y),y, color = 'black')); 
+
+    plt.plot(xrange(x_start, x_start+len(y)),y, color = 'black'); 
 
 x_start = 0;
 y=list()
