@@ -31,8 +31,7 @@ while(True):
     	if(i%200 == 0):
             print "reached"
             drawnow(makeFig);
-    else:
-        i+=1;
+    i+=1;
 
 spi.close();
 
