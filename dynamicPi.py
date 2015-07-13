@@ -28,6 +28,7 @@ while(True):
         y.pop(0);
         x_start += 1;
     	if(i%200 == 0):
+            print "reached"
             drawnow(makeFig);
     else:
         i+=1;
