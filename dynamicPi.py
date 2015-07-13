@@ -20,7 +20,7 @@ def makeFig():
 x_start = 0;
 y=list()
 
-
+i = 0;
 while(True):
     byteArray= spi.xfer([0xff]*2);
     y.append(byteArray[0] << 8 + byteArray[1]);
@@ -29,6 +29,8 @@ while(True):
         x_start += 1;
     	if(i%200 == 0):
             drawnow(makeFig);
+    else:
+        i+=1;
 
 spi.close();
 
