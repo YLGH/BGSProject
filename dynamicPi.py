@@ -8,7 +8,7 @@ spi.open(0,0);
 
 plt.ion();
 fig=plt.figure()
-plt.ylim([0,4096])
+plt.ylim([0,5000])
 
 
 def makeFig():
@@ -24,7 +24,8 @@ y=list()
 i = 0;
 while(True):
     byteArray= spi.xfer([0xff]*2);
-    y.append(byteArray[0] << 8 + byteArray[1]);
+    print byteArray;
+    y.append((byteArray[0] << 8) + byteArray[1]);
     if(i > 2000):
         y.pop(0);
         x_start += 1;
