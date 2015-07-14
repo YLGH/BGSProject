@@ -22,13 +22,13 @@ def makeFig():
 x_start = 0;
 y=list()
 
-for i in arange(20000):
+"""for i in arange(20000):
     temp_y=st[0].data[i];
     y.append(temp_y);
     if(i > 2000):
         y.pop(0);
         x_start += 1;
     	if(i%200 == 0):
-            drawnow(makeFig);
+            drawnow(makeFig);"""
 
         
