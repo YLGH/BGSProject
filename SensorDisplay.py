@@ -4,20 +4,22 @@ import pyqtgraph as pg
 from collections import deque
 import spidev
 import threading
+import time
 
 #QtGui.QApplication.setGraphicsSystem('raster')
 
 spi = spidev.SpiDev();
 spi.open(0,0);
-
-data = [deque(maxlen=1000),deque(maxlen=1000),deque(maxlen=1000),deque(maxlen=1000)]
-qx = deque(maxlen=1000)
+maxlenx = 2000
+data = [deque(maxlen=maxlenx),deque(maxlen=maxlenx),deque(maxlen=maxlenx),deque(maxlen=maxlenx)]
+qx = deque(maxlen=maxlenx)
 
 def getNext():
     global ptr
     ptr = 0
 
     while True:
+        time.sleep(0.0001)
         byteArray = spi.xfer([0xff]*2);
         for i in range(0, 4):
             toAdd = (byteArray[0] << 8) + byteArray[1]
@@ -34,7 +36,7 @@ win.resize(1000,800)
 win.setWindowTitle('Sensor plots')
 
 # Enable antialiasing for prettier plots
-pg.setConfigOptions(antialias=True)
+pg.setConfigOptions(antialias=False)
 
 
 p1 = win.addPlot(title="Sensor One")
