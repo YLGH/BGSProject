@@ -10,7 +10,7 @@ import threading
 spi = spidev.SpiDev();
 spi.open(0,0);
 
-q = [deque(maxlen=1000),deque(maxlen=1000),deque(maxlen=1000),deque(maxlen=1000)]
+data = [deque(maxlen=1000),deque(maxlen=1000),deque(maxlen=1000),deque(maxlen=1000)]
 qx = deque(maxlen=1000)
 
 def getNext():
@@ -21,7 +21,7 @@ def getNext():
         byteArray = spi.xfer([0xff]*2);
         for i in range(0, 4):
             toAdd = (byteArray[0] << 8) + byteArray[1]
-            q[i].append(toAdd)
+            data[i].append(toAdd)
         qx.append(ptr)
         ptr+=1
 
@@ -65,7 +65,7 @@ def update4():
     curve4.setData(qx, data[3])
 
 def update():
-    global curve1, curve2, curve3, curve4, ptr, p1, p2, p3, p4, qx
+    global curve1, curve2, curve3, curve4, ptr, p1, p2, p3, p4, qx, data
     update1()
     update2()
     update3()
