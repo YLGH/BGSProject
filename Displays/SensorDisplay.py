@@ -20,9 +20,9 @@ def getNext():
 
     while True:
         time.sleep(0.0001)
-        byteArray = spi.xfer([0xff]*2);
+        byteArray = spi.xfer([0x01]+[0xff]*8);
         for i in range(0, 4):
-            toAdd = (byteArray[0] << 8) + byteArray[1]
+            toAdd = (byteArray[(2*i)+1] << 8) + byteArray[(2*i)+2]
             data[i].append(toAdd)
         qx.append(ptr)
         ptr+=1
@@ -64,7 +64,7 @@ p4 = win.addPlot(title="Sensor Four")
 curve4 = p4.plot(pen='y')
 ptr = 0
 def update4():
-    global curve4, data, ptr, p4
+    global curve4, p4
     curve4.setData(qx, data[3])
 
 def update():
