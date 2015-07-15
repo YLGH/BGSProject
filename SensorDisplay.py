@@ -28,7 +28,6 @@ def getNext():
 input_Thread = threading.Thread(target = getNext)
 input_Thread.start();
 
-
 app = QtGui.QApplication([])
 win = pg.GraphicsWindow(title="Sensor Plots")
 win.resize(1000,800)
@@ -74,7 +73,7 @@ def update():
 
 timer = QtCore.QTimer()
 timer.timeout.connect(update)
-timer.start(50)
+timer.start()
 
 if __name__ == '__main__':
     import sys
