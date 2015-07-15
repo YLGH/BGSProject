@@ -7,12 +7,7 @@ import threading
 import time
 
 #QtGui.QApplication.setGraphicsSystem('raster')
-
-spi = spidev.SpiDev();
-spi.open(0,0);
-maxlenx = 2000
-data = [deque(maxlen=maxlenx),deque(maxlen=maxlenx),deque(maxlen=maxlenx),deque(maxlen=maxlenx)]
-qx = deque(maxlen=maxlenx)
+    
 
 def getNext():
     global ptr
