@@ -19,10 +19,12 @@ def getNext():
     ptr = 0
 
     while True:
-        time.sleep(0.0001)
-        byteArray = spi.xfer([0x01]+[0xff]*8);
+        time.sleep(.0001)
+        byteArray = spi.xfer([0x01])	
+	byteArray = spi.xfer([0xff]*8);
+	print byteArray
         for i in range(0, 4):
-            toAdd = (byteArray[(2*i)+1] << 8) + byteArray[(2*i)+2]
+            toAdd = (byteArray[(2*i)] << 8) + byteArray[(2*i)+1]
             data[i].append(toAdd)
         qx.append(ptr)
         ptr+=1
@@ -82,3 +84,4 @@ if __name__ == '__main__':
     import sys
     if (sys.flags.interactive != 1) or not hasattr(QtCore, 'PYQT_VERSION'):
         QtGui.QApplication.instance().exec_()
+
