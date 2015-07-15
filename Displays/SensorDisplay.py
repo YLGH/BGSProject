@@ -76,6 +76,11 @@ def update():
     update3()
     update4()
 
+p1.setYRange(0, 4096);
+p2.setYRange(0, 4096);
+p3.setYRange(0, 4096);
+p4.setYRange(0, 4096);
+
 timer = QtCore.QTimer()
 timer.timeout.connect(update)
 timer.start()
