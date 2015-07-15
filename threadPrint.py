@@ -30,6 +30,7 @@ def run():
 		drawnow(makeFig);
 
 	a = threading.Thread(target= getNext);
+	a.daemon = True;
 	a.start();
 
 
