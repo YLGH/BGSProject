@@ -28,7 +28,8 @@ def getNext():
         ptr+=1
 
 input_Thread = threading.Thread(target = getNext)
-input_Thread.start();
+input_Thread.daemon = True
+input_Thread.start()
 
 app = QtGui.QApplication([])
 win = pg.GraphicsWindow(title="Sensor Plots")
