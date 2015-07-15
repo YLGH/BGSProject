@@ -20,9 +20,10 @@ ptr = 0
 
 spi = spidev.SpiDev();
 spi.open(0,0);
+spi.max_speed_hz = 2000000;
 
-q = deque(maxlen = 200);
-qx = deque(maxlen = 200);
+q = deque(maxlen = 2000);
+qx = deque(maxlen = 2000);
 
 def getNext():
 	byteArray= spi.xfer([0xff]*2);
@@ -32,7 +33,7 @@ def update():
     global curve, data, ptr, p6
     getNext();
     qx.append(ptr);
-    curve.setData(qx, q);
+    curve.setData(qx, q, orthoRange = [0,4096]);
     ptr += 1
 
 timer = QtCore.QTimer()
