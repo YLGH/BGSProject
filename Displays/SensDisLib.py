@@ -26,7 +26,7 @@ class SensorDisplay:
 		self.win.setWindowTitle('Sensor Displays')
 
 		self.sensorSet = [False, False, False, False]
-		self.voltageFunction = [lambda x: 1.5*x, lambda x: x, lambda x: x, lambda x: x]
+		self.voltageFunction = [lambda x: x, lambda x: x, lambda x: x, lambda x: x]
 
 		pg.setConfigOptions(antialias = False)
 
