@@ -97,17 +97,16 @@ class SensorDisplay:
 		self.p4.setYRange(low, high);
 
 
-	def setVoltageFunction_Sensor_One(self, newFunc):
-		self.voltageFunction[0] = lambda x: newFunc(x)
-	def setVoltageFunction_Sensor_Two(self, newFunc):
-		self.voltageFunction[1] = lambda x: newFunc(x)
-	def setVoltageFunction_Sensor_Three(self,newFunc):
-		self.voltageFunction[2] = lambda x: newFunc(x)
-	def setVoltageFunction_Sensor_Four(self, newFunc):
-		self.voltageFunction[3] = lambda x: newFunc(x)
+	def setVoltageFunction_Sensor(self, index, newFunc):
+		self.voltageFunction[index-1] = lambda x: newFunc(x)
 
 	def numSensors():
 		return self.numSensors
+
+	def get_Raw_Sensor(self, index):
+		byteArray = self.spi.xfer([0x01])
+		byteArray = self.spi.xfer([0xff]*8)
+		return (byteArray[2*index] << 8) + byteArray[2*index+1]
 
 
 	def update(self):
@@ -116,7 +115,7 @@ class SensorDisplay:
 		if(self.sensorSet[1]):
 			self.curve2.setData(self.qx,self.data[1])
 		if(self.sensorSet[2]):
-			self.curve3.setData(self.qx, self.data[2])
+			self.curve3.setData(self.qx,self.data[2])
 		if(self.sensorSet[3]):
 			self.curve4.setData(self.qx,self.data[3])
 
@@ -134,7 +133,7 @@ class SensorDisplay:
 			self.qx.append(ptr)
 			ptr+=1
 
-	def run(self):
+	def runPlot(self):
 		self.input_Thread = threading.Thread(target = self.getNext)
 		self.input_Thread.daemon = True
 		self.input_Thread.start()
