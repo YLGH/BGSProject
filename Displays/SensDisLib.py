@@ -111,7 +111,7 @@ class SensorDisplay:
 			byteArray = self.spi.xfer([0xff]*8)
 			for i in range(0, 4):
 				toAdd = (byteArray[(2*i)] << 8) + byteArray[(2*i)+1]
-				self.data[i].append(voltageFunction[i](toAdd))
+				self.data[i].append(self.voltageFunction[i](toAdd))
 			self.qx.append(ptr)
 			ptr+=1
 
