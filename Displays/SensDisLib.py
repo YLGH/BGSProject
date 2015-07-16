@@ -81,15 +81,19 @@ class SensorDisplay:
 			self.sensorSet[3] = True
 
 	def setYRange_Sensor_One(self, low, high):
+		assert(low <= high), "The lower bound must be lower than the upper bound!"
 		self.p1.setYRange(low, high);
 
 	def setYRange_Sensor_Two(self, low, high):
+		assert(low <= high), "The lower bound must be lower than the upper bound!"
 		self.p2.setYRange(low, high);
 
 	def setYRange_Sensor_Three(self, low, high):
+		assert(low <= high), "The lower bound must be lower than the upper bound!"
 		self.p3.setYRange(low, high);
 
 	def setYRange_Sensor_Four(self, low, high):
+		assert(low <= high), "The lower bound must be lower than the upper bound!"
 		self.p4.setYRange(low, high);
 
 
@@ -101,6 +105,9 @@ class SensorDisplay:
 		self.voltageFunction[2] = lambda x: newFunc(x)
 	def setVoltageFunction_Sensor_Four(self, newFunc):
 		self.voltageFunction[3] = lambda x: newFunc(x)
+
+	def numSensors():
+		return self.numSensors
 
 
 	def update(self):
@@ -118,11 +125,12 @@ class SensorDisplay:
 
 		while True:
 			time.sleep(.0001)
-			byteArray = self.spi.xfer([0x01])	
-			byteArray = self.spi.xfer([0xff]*8)
+			byteArray = self.spi.xfer([0x01])#sending a "I need data bit"
+			byteArray = self.spi.xfer([0xff]*8) #retrieving the 8 bits
 			for i in range(0, 4):
-				toAdd = (byteArray[(2*i)] << 8) + byteArray[(2*i)+1]
-				self.data[i].append(self.voltageFunction[i](toAdd))
+				if(self.sensorSet(i)):
+					toAdd = (byteArray[(2*i)] << 8) + byteArray[(2*i)+1]
+					self.data[i].append(self.voltageFunction[i](toAdd))
 			self.qx.append(ptr)
 			ptr+=1
 
