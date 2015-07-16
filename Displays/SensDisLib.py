@@ -93,13 +93,13 @@ class SensorDisplay:
 		self.p4.setYRange(low, high);
 
 
-	def setVoltageFunction_Sensor_One(newFunc):
+	def setVoltageFunction_Sensor_One(self, newFunc):
 		self.voltageFunction[0] = lambda x: newFunc(x)
-	def setVoltageFunction_Sensor_Two(newFunc):
+	def setVoltageFunction_Sensor_Two(self, newFunc):
 		self.voltageFunction[1] = lambda x: newFunc(x)
-	def setVoltageFunction_Sensor_Three(newFunc):
+	def setVoltageFunction_Sensor_Three(self,newFunc):
 		self.voltageFunction[2] = lambda x: newFunc(x)
-	def setVoltageFunction_Sensor_Four(newFunc):
+	def setVoltageFunction_Sensor_Four(self, newFunc):
 		self.voltageFunction[3] = lambda x: newFunc(x)
 
 
