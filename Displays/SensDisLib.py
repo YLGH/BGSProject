@@ -104,6 +104,7 @@ class SensorDisplay:
 		return self.numSensors
 
 	def get_Raw_Sensor(self, index):
+		index -= 1
 		byteArray = self.spi.xfer([0x01])
 		byteArray = self.spi.xfer([0xff]*8)
 		return (byteArray[2*index] << 8) + byteArray[2*index+1]
