@@ -1,4 +1,4 @@
-import SensDisLib as s
+import Displays/SensDisLib as s
 import time as t
 
 sensor = s.SensorDisplay()
@@ -13,7 +13,12 @@ peakTimes = list()
 lastVoltage = 0
 thisVoltage = 0
 while numPeaks < 17:
-	thisVoltage = sensor.get_Raw_Sensor(1)
+	lastVoltage = thisVoltage
+	thisVoltage = 0
+	#average over 16 measurements
+	for i in xrange(64):
+		thisVoltage += sensor.get_Raw_Sensor(1)
+	thisVoltage /= 64
 	if(thisVoltage >= threshHold and lastVoltage < threshHold):
 		peakTimes.append(t.time())
 		numPeaks += 1
@@ -26,6 +31,7 @@ for i in range(1, 16):
 
 print peakTimes
 print timeDifference
+
 
 
 
