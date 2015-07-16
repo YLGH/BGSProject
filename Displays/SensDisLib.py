@@ -92,6 +92,17 @@ class SensorDisplay:
 	def setYRange_Sensor_Four(self, low, high):
 		self.p4.setYRange(low, high);
 
+
+	def setVoltageFunction_Sensor_One(newFunc):
+		self.voltageFunction[0] = lambda x: newFunc(x)
+	def setVoltageFunction_Sensor_Two(newFunc):
+		self.voltageFunction[1] = lambda x: newFunc(x)
+	def setVoltageFunction_Sensor_Three(newFunc):
+		self.voltageFunction[2] = lambda x: newFunc(x)
+	def setVoltageFunction_Sensor_Four(newFunc):
+		self.voltageFunction[3] = lambda x: newFunc(x)
+
+
 	def update(self):
 		if(self.sensorSet[0]):
 			self.curve1.setData(self.qx,self.data[0])
