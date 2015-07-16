@@ -6,7 +6,7 @@ sensor = s.SensorDisplay()
 #We want to see a total of 17 peaks, for 16 time differences
 
 numPeaks = 0
-threshHold = 1900
+threshHold = 2025
 
 peakTimes = list()
 
@@ -19,8 +19,13 @@ while numPeaks < 17:
 		numPeaks += 1
 	lastVoltage = thisVoltage
 
+timeDifference = []
+
+for i in range(1, 16):
+	timeDifference.append(peakTimes[i]-peakTimes[i-1])
 
 print peakTimes
+print timeDifference
 
 
 
