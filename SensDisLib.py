@@ -32,7 +32,7 @@ class SensorDisplay:
 
 	#Add Sensor One
 
-	def add_Sensor_One(self, graphTitle = "Sensor One"):
+	def add_sensor_one(self, graphTitle = "Sensor One"):
 		if(not self.sensorSet[0]):
 			if self.numSensors == 2:
 				win.nextRow()
@@ -44,7 +44,7 @@ class SensorDisplay:
 
 			self.sensorSet[0] = True
 
-	def add_Sensor_Two(self, graphTitle = "Sensor Two"):
+	def add_sensor_two(self, graphTitle = "Sensor Two"):
 		if(not self.sensorSet[1]):
 			if self.numSensors == 2:
 				self.win.nextRow()
@@ -56,7 +56,7 @@ class SensorDisplay:
 
 			self.sensorSet[1] = True
 
-	def add_Sensor_Three(self, graphTitle = "Sensor Three"):
+	def add_sensor_three(self, graphTitle = "Sensor Three"):
 		if(not self.sensorSet[2]):
 			if self.numSensors == 2:
 				self.win.nextRow()
@@ -68,7 +68,7 @@ class SensorDisplay:
 
 			self.sensorSet[2] = True
 
-	def add_Sensor_Four(self, graphTitle = "Sensor Four"):
+	def add_sensor_four(self, graphTitle = "Sensor Four"):
 		if(not self.sensorSet[3]):
 			if self.numSensors == 2:
 				self.win.nextRow()
@@ -80,34 +80,42 @@ class SensorDisplay:
 
 			self.sensorSet[3] = True
 
-	def setYRange_Sensor_One(self, low, high):
+	def setYRange_sensor_one(self, low, high):
 		assert(low <= high), "The lower bound must be lower than the upper bound!"
 		self.p1.setYRange(low, high);
 
-	def setYRange_Sensor_Two(self, low, high):
+	def setYRange_sensor_two(self, low, high):
 		assert(low <= high), "The lower bound must be lower than the upper bound!"
 		self.p2.setYRange(low, high);
 
-	def setYRange_Sensor_Three(self, low, high):
+	def setYRange_sensor_three(self, low, high):
 		assert(low <= high), "The lower bound must be lower than the upper bound!"
 		self.p3.setYRange(low, high);
 
-	def setYRange_Sensor_Four(self, low, high):
+	def setYRange_sensor_four(self, low, high):
 		assert(low <= high), "The lower bound must be lower than the upper bound!"
 		self.p4.setYRange(low, high);
 
 
-	def setVoltageFunction_Sensor(self, index, newFunc):
+	def setVoltageFunction_sensor(self, index, newFunc):
 		self.voltageFunction[index-1] = lambda x: newFunc(x)
 
 	def numSensors():
 		return self.numSensors
 
-	def get_Raw_Sensor(self, index):
+	def get_raw_sensor(self, index):
 		index -= 1
+		#assert(self.sensorSet[i]), "This sensor has not been set yet!"
 		byteArray = self.spi.xfer([0x01])
 		byteArray = self.spi.xfer([0xff]*8)
 		return (byteArray[2*index] << 8) + byteArray[2*index+1]
+	
+	def get_sensor(self, index):
+		index -= 1
+		byteArray = self.spi.xfer([0x01])
+		byteArray = self.spi.xfer([0xff]*8)
+		return self.voltageFunction[index]((byteArray[2*index] << 8) + byteArray[2*index+1])
+
 
 
 	def update(self):
