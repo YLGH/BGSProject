@@ -1,4 +1,4 @@
-import Displays/SensDisLib as s
+import SensDisLib as s
 import time as t
 
 sensor = s.SensorDisplay()
@@ -6,7 +6,7 @@ sensor = s.SensorDisplay()
 #We want to see a total of 17 peaks, for 16 time differences
 
 numPeaks = 0
-threshHold = 2025
+threshHold = 1000
 
 peakTimes = list()
 
@@ -22,6 +22,7 @@ while numPeaks < 17:
 	if(thisVoltage >= threshHold and lastVoltage < threshHold):
 		peakTimes.append(t.time())
 		numPeaks += 1
+		print numPeaks
 	lastVoltage = thisVoltage
 
 timeDifference = []
