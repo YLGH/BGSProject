@@ -77,7 +77,7 @@ class BoardControlLib:
 0x08: CSV FileType
 0x09: reserved for file type
 0x0A-F: reserved for file type
-
+0x11: report firmware version
 
 
 [0xffff]: Dummy data that we have to send by convention'''
