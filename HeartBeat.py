@@ -31,7 +31,7 @@ sensor.runPlot()
 numPeaks = 0
 lastTime = 0
 maxIteration = 8
-threshold = 2075
+threshold = 2040
 timeDifferences = []
 
 lastVoltage = 0

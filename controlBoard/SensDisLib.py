@@ -1,10 +1,10 @@
 from pyqtgraph.Qt import QtGui, QtCore
-import numpy as np
 import pyqtgraph as pg
 from collections import deque
 import spidev
 import threading
 import time
+import Sensor
 
 
 class SensorDisplay:
@@ -16,14 +16,14 @@ class SensorDisplay:
 		self.spi = spidev.SpiDev()
 		self.spi.open(0,0)
 
-		maxlenx = displayTime * 1000
-		self.data = [deque(maxlen=maxlenx),deque(maxlen=maxlenx),deque(maxlen=maxlenx),deque(maxlen=maxlenx)]
-		self.qx = deque(maxlen=maxlenx)
+		maxlength = displayTime * 1000
+		self.data = [deque(maxlen=maxlength),deque(maxlen=maxlength),deque(maxlen=maxlength),deque(maxlen=maxlength)]
+		self.qx = deque(maxlen=maxlength)
 
 		self.app = QtGui.QApplication([])
-		self.win = pg.GraphicsWindow(title = "Sensor Displays")
+		self.win = pg.GraphicsWindow(title = "Sensor Readings")
 		self.win.resize(1000, 800)
-		self.win.setWindowTitle('Sensor Displays')
+		self.win.setWindowTitle('Sensor Plots')
 
 		self.sensorSet = [False, False, False, False]
 		self.voltageFunction = [lambda x: x, lambda x: x, lambda x: x, lambda x: x]
@@ -105,7 +105,11 @@ class SensorDisplay:
 
 	def get_raw_sensor(self, index):
 		index -= 1
+<<<<<<< HEAD:SensDisLib.py
 		#assert(self.sensorSet[i]), "This sensor has not been set yet!"
+=======
+		assert(self.sensorSet[i]), "This sensor has not been set yet!"
+>>>>>>> 4e2213ffad9ca1b071a78308fc5f5ea0c2e65170:controlBoard/SensDisLib.py
 		byteArray = self.spi.xfer([0x01])
 		byteArray = self.spi.xfer([0xff]*8)
 		return (byteArray[2*index] << 8) + byteArray[2*index+1]
@@ -115,6 +119,7 @@ class SensorDisplay:
 		byteArray = self.spi.xfer([0x01])
 		byteArray = self.spi.xfer([0xff]*8)
 		return self.voltageFunction[index]((byteArray[2*index] << 8) + byteArray[2*index+1])
+
 
 
 
@@ -130,7 +135,6 @@ class SensorDisplay:
 
 	def getNext(self):
 		ptr = 0
-
 		while True:
 			time.sleep(.0001)
 			byteArray = self.spi.xfer([0x01])#sending a "I need data bit"
