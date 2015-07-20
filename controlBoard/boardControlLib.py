@@ -6,7 +6,7 @@ import Filetype
 
 #What to name each channel
 
-#Sample rate per channel
+#Sample rate
 
 #What is the file output type
 
@@ -29,10 +29,6 @@ class BoardControlLib:
 		self.spi = spidev.SpiDev()
 		self.spi.open(0,0)
 
-	def start_log(self):
-		#spidev to send
-		pass
-
 	def set_CSV(self):
 		fileType = CSV()
 		fileType.indicate()
@@ -42,29 +38,48 @@ class BoardControlLib:
 		fileType.indicate()
 
 	def set_sample_rate(self, index, sampleRate):
-		channel[index-1].set_sample_rate
+		spi.xfer([0x03])
+		spi.xfer([samplerate])
 
 	def start_logging(self, index):
-		#loop through and xfer
-		pass
+		assert(self.cardInitialized), "CARD IS NOT INiTIALIZED"
+		spi.xfer([0x04])
+		self.recording = True
 
 	def stop_logging(self, index):
-		#loop through and xfer
-		pass
+		assert(self.recording), "WE ARE NOT RECORDING"
+		spi.xfer([0x05])
+		self.recording = False
 
 	def initialize_card(self):
-		#have it talk to the card, before we do any operations
-		pass
+		spi.xfer([0x06])
+		self.cardInitialized = True
 
-	def start_record(self):
-		#indicate we need to record
-		pass
-
-	def stop_record(self):
-		#indicate we want to stop recording
-		pass
-
+	def set_name_sensor(self, index, name_String):
+		spi.xfer([0x02])
+		spi.xfer([index])
+		spi.xfer([len(name)])
+		for letter in name_String:
+			spi.xfer([ord(letter)])
 
 
+
+
+
+
+'''0x01: We want to retrieve the information on the four sensors
+0x02: We want to set the name - followed by which sensor - followed by a String (length, then characters)
+0x03: Set sample rate - followed by an integer
+0x04: start logging
+0x05: stop logging
+0x06: initialize the card
+0x07: Binary Filetype
+0x08: CSV FileType
+0x09: reserved for file type
+0x0A-F: reserved for file type
+
+
+
+[0xffff]: Dummy data that we have to send by convention'''
 
 

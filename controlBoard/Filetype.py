@@ -10,14 +10,6 @@ class Filetype:
 		return self.typeName
 
 
-class CSV(Filetype):
-	def __init__(self):
-		self.typeName = "CSV"
-
-	def indicate(self):
-		print "CSV"
-		#return
-		#Implement SendData type
 
 
 class Binary(Filetype):
@@ -25,5 +17,12 @@ class Binary(Filetype):
 		self.typeName = "Binary"
 
 	def indicate(self):
-		return
-		#Implement SendData type
+		spi.xfer([0x07])
+
+
+class CSV(Filetype):
+	def __init__(self):
+		self.typeName = "CSV"
+
+	def indicate(self):
+		spi.xfer([0x08])
