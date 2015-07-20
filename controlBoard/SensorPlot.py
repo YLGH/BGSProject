@@ -7,7 +7,7 @@ import time
 import Sensor
 
 
-class SensorDisplay:
+class SensorPlot:
 
 	def __init__(self, displayTime = 2):
 		#input is the maxDisplayTime in seconds
