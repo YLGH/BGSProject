@@ -1,5 +1,3 @@
-import spidev
-
 class Sensor:
 
 	def __init__(self):
@@ -27,14 +25,13 @@ class Sensor:
 	def stop_logging(self):
 		self.toLog = False
 
+	def setVoltageFunction(self, newFunc):
+		self.displayFunction = lambda x: newFunc(x)
 
 	def get_raw(self):
 		byteArray = self.spi.xfer([0x01])
 		byteArray = self.spi.xfer([0xff]*8)
 		return (byteArray[2*index] << 8) + byteArray[2*index+1]
 
-	def setVoltageFunction(self, newFunc):
-		self.displayFunction = lambda x: newFunc(x)
-
 	def get_cook(self):
-		return self.displayFunction(get_raw())
+		return self.displayFunction(this.get_raw())

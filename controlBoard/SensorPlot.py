@@ -41,7 +41,7 @@ class SensorPlot:
 
 		if(self.numSensors == 2):
 			self.win.nextRow()
-		self.sensors[index].toLog = True
+		self.sensors[index].start_logging()
 
 		self.plot[index] = self.win.addPlot(title = graphTitle)
 		self.plot[index].setYRange(0, 4096)
