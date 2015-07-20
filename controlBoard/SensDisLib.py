@@ -1,10 +1,10 @@
 from pyqtgraph.Qt import QtGui, QtCore
-import numpy as np
 import pyqtgraph as pg
 from collections import deque
 import spidev
 import threading
 import time
+import Sensor
 
 
 class SensorDisplay:
@@ -16,14 +16,14 @@ class SensorDisplay:
 		self.spi = spidev.SpiDev()
 		self.spi.open(0,0)
 
-		maxlenx = displayTime * 1000
-		self.data = [deque(maxlen=maxlenx),deque(maxlen=maxlenx),deque(maxlen=maxlenx),deque(maxlen=maxlenx)]
-		self.qx = deque(maxlen=maxlenx)
+		maxlength = displayTime * 1000
+		self.data = [deque(maxlen=maxlength),deque(maxlen=maxlength),deque(maxlen=maxlength),deque(maxlen=maxlength)]
+		self.qx = deque(maxlen=maxlength)
 
 		self.app = QtGui.QApplication([])
-		self.win = pg.GraphicsWindow(title = "Sensor Displays")
+		self.win = pg.GraphicsWindow(title = "Sensor Readings")
 		self.win.resize(1000, 800)
-		self.win.setWindowTitle('Sensor Displays')
+		self.win.setWindowTitle('Sensor Plots')
 
 		self.sensorSet = [False, False, False, False]
 		self.voltageFunction = [lambda x: x, lambda x: x, lambda x: x, lambda x: x]
@@ -32,7 +32,7 @@ class SensorDisplay:
 
 	#Add Sensor One
 
-	def add_Sensor_One(self, graphTitle = "Sensor One"):
+	def add_sensor_one(self, graphTitle = "Sensor One"):
 		if(not self.sensorSet[0]):
 			if self.numSensors == 2:
 				win.nextRow()
@@ -44,7 +44,7 @@ class SensorDisplay:
 
 			self.sensorSet[0] = True
 
-	def add_Sensor_Two(self, graphTitle = "Sensor Two"):
+	def add_sensor_two(self, graphTitle = "Sensor Two"):
 		if(not self.sensorSet[1]):
 			if self.numSensors == 2:
 				self.win.nextRow()
@@ -56,7 +56,7 @@ class SensorDisplay:
 
 			self.sensorSet[1] = True
 
-	def add_Sensor_Three(self, graphTitle = "Sensor Three"):
+	def add_sensor_three(self, graphTitle = "Sensor Three"):
 		if(not self.sensorSet[2]):
 			if self.numSensors == 2:
 				self.win.nextRow()
@@ -68,7 +68,7 @@ class SensorDisplay:
 
 			self.sensorSet[2] = True
 
-	def add_Sensor_Four(self, graphTitle = "Sensor Four"):
+	def add_sensor_four(self, graphTitle = "Sensor Four"):
 		if(not self.sensorSet[3]):
 			if self.numSensors == 2:
 				self.win.nextRow()
@@ -80,34 +80,36 @@ class SensorDisplay:
 
 			self.sensorSet[3] = True
 
-	def setYRange_Sensor_One(self, low, high):
+	def setYRange_sensor_one(self, low, high):
 		assert(low <= high), "The lower bound must be lower than the upper bound!"
 		self.p1.setYRange(low, high);
 
-	def setYRange_Sensor_Two(self, low, high):
+	def setYRange_sensor_two(self, low, high):
 		assert(low <= high), "The lower bound must be lower than the upper bound!"
 		self.p2.setYRange(low, high);
 
-	def setYRange_Sensor_Three(self, low, high):
+	def setYRange_sensor_three(self, low, high):
 		assert(low <= high), "The lower bound must be lower than the upper bound!"
 		self.p3.setYRange(low, high);
 
-	def setYRange_Sensor_Four(self, low, high):
+	def setYRange_sensor_four(self, low, high):
 		assert(low <= high), "The lower bound must be lower than the upper bound!"
 		self.p4.setYRange(low, high);
 
 
-	def setVoltageFunction_Sensor(self, index, newFunc):
+	def setVoltageFunction_sensor(self, index, newFunc):
 		self.voltageFunction[index-1] = lambda x: newFunc(x)
 
 	def numSensors():
 		return self.numSensors
 
-	def get_Raw_Sensor(self, index):
+	def get_raw_sensor(self, index):
 		index -= 1
+		assert(self.sensorSet[i]), "This sensor has not been set yet!"
 		byteArray = self.spi.xfer([0x01])
 		byteArray = self.spi.xfer([0xff]*8)
 		return (byteArray[2*index] << 8) + byteArray[2*index+1]
+
 
 
 	def update(self):
@@ -122,7 +124,6 @@ class SensorDisplay:
 
 	def getNext(self):
 		ptr = 0
-
 		while True:
 			time.sleep(.0001)
 			byteArray = self.spi.xfer([0x01])#sending a "I need data bit"
