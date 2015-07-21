@@ -1,6 +1,8 @@
 import spidev
 import Filetype as f
 import Sensor as s
+import time
+from math import floor
 
 
 #Configure which channels to log
@@ -31,16 +33,18 @@ class BoardControlLib:
 		self.spi.open(0,0)
 
 	def set_CSV(self):
-		fileType = CSV()
+		fileType = f.CSV(self.spi)
 		fileType.indicate()
 
 	def set_Binary(self):
-		fileType = binary()
+		fileType = f.Binary(self.spi)
 		fileType.indicate()
 
-	def set_sample_rate(self, index, sampleRate):
+	def set_sample_rate(self, sampleRate):
 		self.spi.xfer([0x03])
-		self.spi.xfer([samplerate])
+		self.spi.xfer([2])
+		sd = int(1000/sampleRate)
+		self.spi.xfer([(sd >> 8) & 0xFF, sd & 0xFF])
 
 	def start_logging(self):
 		assert(self.cardInitialized), "CARD IS NOT INITIALIZED"
@@ -54,12 +58,24 @@ class BoardControlLib:
 
 	def initialize_card(self):
 		self.spi.xfer([0x06])
-		self.cardInitialized = True
+		reps = 0
+		while reps<20:
+			if self.is_card_ready():
+				self.cardInitialized = True
+				return True
+			reps += 1
+			time.sleep(0.1)
+		self.cardInitialized = False
+		return False
+
+	def is_card_ready(self):
+		self.spi.xfer([0x07])
+		return (self.spi.xfer([0xff])[0] == 1)
 
 	def set_name_sensor(self, index, name_String):
 		self.spi.xfer([0x02])
-		self.spi.xfer([index])
-		self.spi.xfer([len(name)])
+		self.spi.xfer([len(name_String) + 1])
+		self.spi.xfer([index-1])
 		for letter in name_String:
 			self.spi.xfer([ord(letter)])
 
