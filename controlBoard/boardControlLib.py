@@ -42,12 +42,12 @@ class BoardControlLib:
 		spi.xfer([samplerate])
 
 	def start_logging(self, index):
-		assert(self.cardInitialized), "CARD IS NOT INiTIALIZED"
+		assert(self.cardInitialized), "CARD IS NOT INITIALIZED"
 		spi.xfer([0x04])
 		self.recording = True
 
 	def stop_logging(self, index):
-		assert(self.recording), "WE ARE NOT RECORDING"
+		assert(self.recording), "CARD IS NOT RECORDING"
 		spi.xfer([0x05])
 		self.recording = False
 
@@ -61,6 +61,10 @@ class BoardControlLib:
 		spi.xfer([len(name)])
 		for letter in name_String:
 			spi.xfer([ord(letter)])
+
+	def get_firmware_string(self):
+		spi.xfer([0x11])
+		return spi.xfer([0xff]*2)
 
 
 
@@ -77,7 +81,7 @@ class BoardControlLib:
 0x08: CSV FileType
 0x09: reserved for file type
 0x0A-F: reserved for file type
-0x11: report firmware version
+0x11: report firmware version String
 
 
 [0xffff]: Dummy data that we have to send by convention'''
