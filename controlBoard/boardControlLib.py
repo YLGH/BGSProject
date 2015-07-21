@@ -1,5 +1,6 @@
 import spidev
-import Filetype
+import Filetype as f
+import Sensor as s
 
 
 #Configure which channels to log
@@ -23,8 +24,8 @@ class BoardControlLib:
 		self.cardInitialized = False
 		self.recording = False
 
-		self.sensors = [Sensor(), Sensor(), Sensor(), Sensor()]
-		self.fileType = FileType()
+		self.sensors = [s.Sensor(), s.Sensor(), s.Sensor(), s.Sensor()]
+		self.fileType = f.Filetype()
 
 		self.spi = spidev.SpiDev()
 		self.spi.open(0,0)
@@ -38,33 +39,33 @@ class BoardControlLib:
 		fileType.indicate()
 
 	def set_sample_rate(self, index, sampleRate):
-		spi.xfer([0x03])
-		spi.xfer([samplerate])
+		self.spi.xfer([0x03])
+		self.spi.xfer([samplerate])
 
-	def start_logging(self, index):
+	def start_logging(self):
 		assert(self.cardInitialized), "CARD IS NOT INITIALIZED"
-		spi.xfer([0x04])
+		self.spi.xfer([0x04])
 		self.recording = True
 
-	def stop_logging(self, index):
+	def stop_logging(self):
 		assert(self.recording), "CARD IS NOT RECORDING"
-		spi.xfer([0x05])
+		self.spi.xfer([0x05])
 		self.recording = False
 
 	def initialize_card(self):
-		spi.xfer([0x06])
+		self.spi.xfer([0x06])
 		self.cardInitialized = True
 
 	def set_name_sensor(self, index, name_String):
-		spi.xfer([0x02])
-		spi.xfer([index])
-		spi.xfer([len(name)])
+		self.spi.xfer([0x02])
+		self.spi.xfer([index])
+		self.spi.xfer([len(name)])
 		for letter in name_String:
-			spi.xfer([ord(letter)])
+			self.spi.xfer([ord(letter)])
 
 	def get_firmware_string(self):
-		spi.xfer([0x11])
-		return spi.xfer([0xff]*2)
+		self.spi.xfer([0x11])
+		return self.spi.xfer([0xff]*2)
 
 
 

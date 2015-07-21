@@ -9,7 +9,7 @@ import Sensor
 
 class SensorPlot:
 
-	def __init__(self, displayTime = 2):
+	def __init__(self, displayTime = 10):
 		#input is the maxDisplayTime in seconds
 		self.numSensors = 0
 
@@ -61,8 +61,9 @@ class SensorPlot:
 
 	def getNext(self):
 		ptr = 0
+		time.sleep(.0001)
 		while True:
-			time.sleep(.0001)
+			time.sleep(.0000001)
 			byteArray = self.spi.xfer([0x01])#sending a "I need data bit"
 			byteArray = self.spi.xfer([0xff]*8) #retrieving the 8 bits
 			for i in range(0, 4):
