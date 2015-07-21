@@ -17,13 +17,13 @@ if test.initialize_card():
 	
 	print "Switching to CSV Format..."
 	
-	print "Logging .csv for 10 second at 0.5SPS..."
-	test.set_CSV()
-	test.set_sample_rate(.5)
-	test.start_logging()
-	time.sleep(10)
-	test.stop_logging()
-	print "Done!"
+	#print "Logging .csv for 10 second at 0.5SPS..."
+	#test.set_CSV()
+	#test.set_sample_rate(.5)
+	#test.start_logging()
+	#time.sleep(10)
+	#test.stop_logging()
+	#print "Done!"
 	
 	
 	print "Logging .bin for 4 seconds at 1000SPS..."

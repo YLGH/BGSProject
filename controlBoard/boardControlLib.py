@@ -4,21 +4,6 @@ import Sensor as s
 import time
 from math import floor
 
-
-#Configure which channels to log
-
-#What to name each channel
-
-#Sample rate
-
-#What is the file output type
-
-#initialize card
-
-#start/pause/stop recording
-
-#start/stop for this amount of time
-
 class BoardControlLib:
 
 	def __init__(self):
@@ -90,7 +75,8 @@ class BoardControlLib:
 
 
 
-'''0x01: We want to retrieve the information on the four sensors
+'''
+0x01: We want to retrieve the information on the four sensors
 0x02: We want to set the name - followed by which sensor - followed by a String (length, then characters)
 0x03: Set sample rate - followed by an integer
 0x04: start logging
@@ -101,8 +87,6 @@ class BoardControlLib:
 0x09: CSV FileType
 0x0A-F: reserved for file type
 0x11: report firmware version String
-
-
-[0xffff]: Dummy data that we have to send by convention'''
+'''
 
 
