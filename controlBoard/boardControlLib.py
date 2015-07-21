@@ -65,7 +65,9 @@ class BoardControlLib:
 
 	def get_firmware_string(self):
 		self.spi.xfer([0x11])
-		return self.spi.xfer([0xff]*2)
+		namelen = self.spi.xfer([0xff])[0]
+		assert(namelen<32), "NAME TOO LONG?!?"
+		return ''.join(map(chr, self.spi.xfer([0xff]*namelen)))
 
 
 
@@ -78,9 +80,9 @@ class BoardControlLib:
 0x04: start logging
 0x05: stop logging
 0x06: initialize the card
-0x07: Binary Filetype
-0x08: CSV FileType
-0x09: reserved for file type
+0x07: is card ready?
+0x08: Binary Filetype
+0x09: CSV FileType
 0x0A-F: reserved for file type
 0x11: report firmware version String
 
