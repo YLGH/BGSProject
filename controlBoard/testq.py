@@ -5,11 +5,11 @@ test = b.BoardControlLib()
 
 print "Board version:", test.get_firmware_string()
 
-#print "Setting names..."
-#test.set_sensor_name(1, "My Sensor 1")
-#test.set_sensor_name(2, "Test 2")
-#test.set_sensor_name(3, "Test 3")
-#test.set_sensor_name(4, "Test 4")
+print "Setting names..."
+test.set_sensor_name(1, "Hello")
+test.set_sensor_name(2, "this")
+test.set_sensor_name(3, "is")
+test.set_sensor_name(4, "test")
 
 #print "Enabling sensor 1 only."
 #test.enable_sensor(1)

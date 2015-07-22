@@ -34,9 +34,13 @@ class MyWidget(QtGui.QWidget, form_class):
 		board.set_sample_rate(self.sample_rate.value())
 
 		board.set_sensor_name(1, str(self.sensor_one_name.text()))
+		print str(self.sensor_one_name.text())
 		board.set_sensor_name(2, str(self.sensor_two_name.text()))
+		print str(self.sensor_two_name.text())
 		board.set_sensor_name(3, str(self.sensor_three_name.text()))
+		print str(self.sensor_three_name.text())
 		board.set_sensor_name(4, str(self.sensor_four_name.text()))
+		print str(self.sensor_four_name.text())
 
 		if(self.check_one.isChecked()):
 			board.enable_sensor(1)

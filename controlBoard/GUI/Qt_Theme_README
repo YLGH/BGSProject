@@ -1,0 +1,11 @@
+# sudo apt-get install qt4-qtconfig
+
+# export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
+
+# echo gtk-theme-name="Clearlooks" > $HOME/.gtkrc-2.0
+
+# qtconfig
+Pick GTK+ from Themes dropdown
+
+# lxappearance
+Running this seems to change things irreversibly for the better

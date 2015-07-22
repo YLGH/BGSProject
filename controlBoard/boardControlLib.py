@@ -40,6 +40,7 @@ class BoardControlLib:
 		self.spi.xfer([4])
 		sd = int(100000/sampleRate)
 		self.spi.xfer([(sd >> 24) & 0xFF, (sd>>16) & 0xFF, (sd >> 8) & 0xFF, sd & 0xFF])
+		time.sleep(0.2)
 
 	def get_sample_rate(self):
 		self.spi.xfer([0x13])

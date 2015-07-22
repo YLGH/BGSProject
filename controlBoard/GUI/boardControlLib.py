@@ -37,14 +37,15 @@ class BoardControlLib:
 	def set_sample_rate(self, sampleRate):
 		assert(not self.recording), "Can't change while recording!"
 		self.spi.xfer([0x03])
-		self.spi.xfer([2])
-		sd = int(1000/sampleRate)
-		self.spi.xfer([(sd >> 8) & 0xFF, sd & 0xFF])
+		self.spi.xfer([4])
+		sd = int(100000/sampleRate)
+		self.spi.xfer([(sd >> 24) & 0xFF, (sd>>16) & 0xFF, (sd >> 8) & 0xFF, sd & 0xFF])
+		time.sleep(0.2)
 
 	def get_sample_rate(self):
 		self.spi.xfer([0x13])
-		val = self.spi.xfer([0xff]*2)
-		sr = 1000.0/((val[0]<<8)+val[1])
+		val = self.spi.xfer([0xff]*4)
+		sr = 100000.0/((val[0]<<24) + (val[1]<<16) + (val[2]<<8) + val[3])
 		return sr
 
 	def start_logging(self):
@@ -134,14 +135,11 @@ class BoardControlLib:
 0x0A-F: reserved for file type
 0x11: report firmware version String
 0x12: Get sensor name - followed by which sensor
-<<<<<<< HEAD
-=======
 0x13: get filetype: 1 for Binary, 2 for CSV
 0x14: Get sample delay
 0x15: Enable sensor - followed by which sensor
 0x16: Disable sensor - followed by which sensor
 0x17: Get enabled sensors mask
->>>>>>> 60fb73b208b1728e0396b89ae69f4df0a969e315
 '''
 
 
