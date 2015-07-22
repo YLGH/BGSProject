@@ -15,13 +15,24 @@ class MyWidget(QtGui.QWidget, form_class):
 		self.stop_logging_button.clicked.connect(self.stop_logging_handle)
 
 		self.sensor_one_setName.clicked.connect(self.sensor_one_setName_handle)
-		self.sensor_one_enable.toggled.connect(self.sensor_one_enable_handle)
+		#self.sensor_one_enable.toggled.connect(self.sensor_one_enable_handle)
+
+		self.sensor_two_setName.clicked.connect(self.sensor_two_setName_handle)
+		#self.sensor_two_enable.toggled.connect(self.sensor_two_enable_handle)
+
+		self.sensor_three_setName.clicked.connect(self.sensor_three_setName_handle)
+		#self.sensor_three_enable.toggled.connect(self.sensor_three_enable_handle)
+
+		self.sensor_four_setName.clicked.connect(self.sensor_four_setName_handle)
+		#self.sensor_four_enable.toggled.connect(self.sensor_four_enable_handle)
 
 	def initialize_handle(self):
-		board.initialize_card()
 		print "Initializing"
+		board.initialize_card()
 
 	def start_logging_handle(self):
+		setFile = {0: board.set_CSV, 1: board.set_Binary}
+		setFile[self.filetype.currentIndex()]()
 		board.set_sample_rate(self.sample_rate.value())
 		board.start_logging()
 		print "Start logging"
@@ -32,9 +43,30 @@ class MyWidget(QtGui.QWidget, form_class):
 
 	def sensor_one_setName_handle(self):
 		board.set_name_sensor(1, str(self.sensor_one_name.text()))
+		print self.sensor_one_name.text()
+	#def sensor_one_enable_handle(self):
+	#	print self.sensor_one_enable.isChecked()
 
-	def sensor_one_enable_handle(self):
-		print self.sensor_one_enable.isChecked()
+
+	def sensor_two_setName_handle(self):
+		board.set_name_sensor(2, str(self.sensor_two_name.text()))
+		print self.sensor_two_name.text()
+	#def sensor_two_enable_handle(self):
+	#	print self.sensor_two_enable.isChecked()
+
+
+	def sensor_three_setName_handle(self):
+		board.set_name_sensor(3, str(self.sensor_three_name.text()))
+		print self.sensor_three_name.text()
+	#def sensor_three_enable_handle(self):
+	#	print self.sensor_three_enable.isChecked()
+
+
+	def sensor_four_setName_handle(self):
+		board.set_name_sensor(4, str(self.sensor_four_name.text()))
+		print self.sensor_four_name.text()
+	#def sensor_four_enable_handle(self):
+	#	print self.sensor_four_enable.isChecked()
 
 
 app = QtGui.QApplication(sys.argv)

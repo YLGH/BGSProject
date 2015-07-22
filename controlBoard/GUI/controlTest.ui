@@ -10,6 +10,18 @@
     <height>680</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>962</width>
+    <height>680</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>962</width>
+    <height>680</height>
+   </size>
+  </property>
   <property name="cursor">
    <cursorShape>ArrowCursor</cursorShape>
   </property>
@@ -19,10 +31,16 @@
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabs">
+     <property name="maximumSize">
+      <size>
+       <width>938</width>
+       <height>662</height>
+      </size>
+     </property>
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="main_tab" native="true">
+     <widget class="QWidget" name="main_tab">
       <attribute name="title">
        <string>Main Control</string>
       </attribute>
@@ -73,6 +91,9 @@
          <width>221</width>
          <height>22</height>
         </rect>
+       </property>
+       <property name="whatsThis">
+        <string>p</string>
        </property>
        <property name="minimum">
         <number>1</number>
@@ -125,8 +146,28 @@
         <bool>true</bool>
        </property>
       </widget>
+      <widget class="QComboBox" name="filetype">
+       <property name="geometry">
+        <rect>
+         <x>343</x>
+         <y>560</y>
+         <width>101</width>
+         <height>26</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>CVS</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Binary</string>
+        </property>
+       </item>
+      </widget>
      </widget>
-     <widget class="QWidget" name="sensor_tab" native="true">
+     <widget class="QWidget" name="sensor_tab">
       <attribute name="title">
        <string>Sensors</string>
       </attribute>
@@ -140,17 +181,17 @@
         </rect>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
-       <widget class="QWidget" name="sensor_one_Tab">
+       <widget class="QWidget" name="sensor_one_tab">
         <attribute name="title">
          <string>Sensor One</string>
         </attribute>
         <widget class="QLineEdit" name="sensor_one_name">
          <property name="geometry">
           <rect>
-           <x>10</x>
-           <y>40</y>
+           <x>20</x>
+           <y>20</y>
            <width>211</width>
            <height>21</height>
           </rect>
@@ -171,8 +212,8 @@
         <widget class="QPushButton" name="sensor_one_setName">
          <property name="geometry">
           <rect>
-           <x>220</x>
-           <y>40</y>
+           <x>230</x>
+           <y>20</y>
            <width>91</width>
            <height>21</height>
           </rect>
@@ -184,8 +225,8 @@
         <widget class="QRadioButton" name="sensor_one_enable">
          <property name="geometry">
           <rect>
-           <x>10</x>
-           <y>70</y>
+           <x>20</x>
+           <y>50</y>
            <width>111</width>
            <height>18</height>
           </rect>
@@ -195,20 +236,164 @@
          </property>
         </widget>
        </widget>
-       <widget class="QWidget" name="tab_3">
+       <widget class="QWidget" name="sensor_two_tab">
         <attribute name="title">
          <string>Sensor Two</string>
         </attribute>
+        <widget class="QRadioButton" name="sensor_two_enable">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>50</y>
+           <width>111</width>
+           <height>18</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Enable Sensor</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="sensor_two_setName">
+         <property name="geometry">
+          <rect>
+           <x>230</x>
+           <y>20</y>
+           <width>91</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Set Name</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="sensor_two_name">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>20</y>
+           <width>211</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="maxLength">
+          <number>20</number>
+         </property>
+         <property name="cursorPosition">
+          <number>0</number>
+         </property>
+         <property name="cursorMoveStyle">
+          <enum>Qt::VisualMoveStyle</enum>
+         </property>
+        </widget>
        </widget>
-       <widget class="QWidget" name="tab_2">
+       <widget class="QWidget" name="sensor_three_tab">
         <attribute name="title">
          <string>Sensor Three</string>
         </attribute>
+        <widget class="QRadioButton" name="sensor_three_enable">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>50</y>
+           <width>111</width>
+           <height>18</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Enable Sensor</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="sensor_three_setName">
+         <property name="geometry">
+          <rect>
+           <x>230</x>
+           <y>20</y>
+           <width>91</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Set Name</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="sensor_three_name">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>20</y>
+           <width>211</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="maxLength">
+          <number>20</number>
+         </property>
+         <property name="cursorPosition">
+          <number>0</number>
+         </property>
+         <property name="cursorMoveStyle">
+          <enum>Qt::VisualMoveStyle</enum>
+         </property>
+        </widget>
        </widget>
-       <widget class="QWidget" name="tab_4">
+       <widget class="QWidget" name="sensor_four_tab">
         <attribute name="title">
          <string>Sensor Four</string>
         </attribute>
+        <widget class="QRadioButton" name="sensor_four_enable">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>50</y>
+           <width>111</width>
+           <height>18</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Enable Sensor</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="sensor_four_setName">
+         <property name="geometry">
+          <rect>
+           <x>230</x>
+           <y>20</y>
+           <width>91</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Set Name</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="sensor_four_name">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>20</y>
+           <width>211</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="maxLength">
+          <number>20</number>
+         </property>
+         <property name="cursorPosition">
+          <number>0</number>
+         </property>
+         <property name="cursorMoveStyle">
+          <enum>Qt::VisualMoveStyle</enum>
+         </property>
+        </widget>
        </widget>
       </widget>
      </widget>
