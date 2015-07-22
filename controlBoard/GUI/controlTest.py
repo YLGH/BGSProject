@@ -1,5 +1,8 @@
 import sys
 from PyQt4 import QtCore, QtGui, uic
+import boardControlLib as b
+
+board = BoardControlLib()
 
 form_class = uic.loadUiType("controlTest.ui")[0]
 
@@ -12,13 +15,16 @@ class MyWindowClass(QtGui.QMainWindow, form_class):
 		self.stop_logging.clicked.connect(self.stop_logging_handle)
 
 	def initialize_handle(self):
+		board.initialize_card()
+		board.set_sample_rate(self.sample_Rate.value())
 		print "Initializing"
 
 	def start_logging_handle(self):
-		print "Sample rate at " + str(self.sample_Rate.value())
+		board.start_logging()
 		print "Start logging"
 
 	def stop_logging_handle(self):
+		board.stop_logging()
 		print "Stopped Logging"
 
 
