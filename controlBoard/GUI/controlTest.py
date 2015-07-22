@@ -45,7 +45,8 @@ class MyWidget(QtGui.QWidget, form_class):
 		board.set_sensor_name(1, str(self.sensor_one_name.text()))
 		print self.sensor_one_name.text()
 	#def sensor_one_enable_handle(self):
-		#print self.sensor_one_enable.isChecked()
+	#	print self.sensor_one_enable.isChecked()
+
 
 	def sensor_two_setName_handle(self):
 		board.set_sensor_name(2, str(self.sensor_two_name.text()))
@@ -53,11 +54,13 @@ class MyWidget(QtGui.QWidget, form_class):
 	#def sensor_two_enable_handle(self):
 	#	print self.sensor_two_enable.isChecked()
 
+
 	def sensor_three_setName_handle(self):
 		board.set_sensor_name(3, str(self.sensor_three_name.text()))
 		print self.sensor_three_name.text()
 	#def sensor_three_enable_handle(self):
 	#	print self.sensor_three_enable.isChecked()
+
 
 	def sensor_four_setName_handle(self):
 		board.set_sensor_name(4, str(self.sensor_four_name.text()))
