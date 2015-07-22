@@ -15,16 +15,16 @@ class MyWidget(QtGui.QWidget, form_class):
 		self.stop_logging_button.clicked.connect(self.stop_logging_handle)
 
 		self.sensor_one_setName.clicked.connect(self.sensor_one_setName_handle)
-		#self.sensor_one_enable.toggled.connect(self.sensor_one_enable_handle)
+		self.sensor_one_enable.toggled.connect(self.sensor_one_enable_handle)
 
 		self.sensor_two_setName.clicked.connect(self.sensor_two_setName_handle)
-		#self.sensor_two_enable.toggled.connect(self.sensor_two_enable_handle)
+		self.sensor_two_enable.toggled.connect(self.sensor_two_enable_handle)
 
 		self.sensor_three_setName.clicked.connect(self.sensor_three_setName_handle)
-		#self.sensor_three_enable.toggled.connect(self.sensor_three_enable_handle)
+		self.sensor_three_enable.toggled.connect(self.sensor_three_enable_handle)
 
 		self.sensor_four_setName.clicked.connect(self.sensor_four_setName_handle)
-		#self.sensor_four_enable.toggled.connect(self.sensor_four_enable_handle)
+		self.sensor_four_enable.toggled.connect(self.sensor_four_enable_handle)
 
 	def initialize_handle(self):
 		print "Initializing"
@@ -44,29 +44,41 @@ class MyWidget(QtGui.QWidget, form_class):
 	def sensor_one_setName_handle(self):
 		board.set_sensor_name(1, str(self.sensor_one_name.text()))
 		print self.sensor_one_name.text()
-	#def sensor_one_enable_handle(self):
-	#	print self.sensor_one_enable.isChecked()
+	def sensor_one_enable_handle(self):
+		if(self.sensor_one_enable.isChecked()):
+			board.enable_sensor(1)
+		else:
+			board.disable_sensor(1)
 
 
 	def sensor_two_setName_handle(self):
 		board.set_sensor_name(2, str(self.sensor_two_name.text()))
 		print self.sensor_two_name.text()
-	#def sensor_two_enable_handle(self):
-	#	print self.sensor_two_enable.isChecked()
+	def sensor_two_enable_handle(self):
+		if(self.sensor_two_enable.isChecked()):
+			board.enable_sensor(2)
+		else:
+			board.disable_sensor(2)
 
 
 	def sensor_three_setName_handle(self):
 		board.set_sensor_name(3, str(self.sensor_three_name.text()))
 		print self.sensor_three_name.text()
-	#def sensor_three_enable_handle(self):
-	#	print self.sensor_three_enable.isChecked()
+	def sensor_three_enable_handle(self):
+		if(self.sensor_three_enable.isChecked()):
+			board.enable_sensor(3)
+		else:
+			board.disable_sensor(3)
 
 
 	def sensor_four_setName_handle(self):
 		board.set_sensor_name(4, str(self.sensor_four_name.text()))
 		print self.sensor_four_name.text()
-	#def sensor_four_enable_handle(self):
-	#	print self.sensor_four_enable.isChecked()
+	def sensor_four_enable_handle(self):
+		if(self.sensor_four_enable.isChecked()):
+			board.enable_sensor(4)
+		else:
+			board.disable_sensor(4)
 
 
 app = QtGui.QApplication(sys.argv)
