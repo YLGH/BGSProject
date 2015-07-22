@@ -124,7 +124,7 @@ class BoardControlLib:
 '''
 0x01: We want to retrieve the information on the four sensors
 0x02: We want to set the name - followed by which sensor - followed by a String (length, then characters)
-0x03: Set sample rate - followed by an integer
+0x03: Set sample delay - followed by an integer
 0x04: start logging
 0x05: stop logging
 0x06: initialize the card
@@ -134,6 +134,11 @@ class BoardControlLib:
 0x0A-F: reserved for file type
 0x11: report firmware version String
 0x12: Get sensor name - followed by which sensor
+0x13: get filetype: 1 for Binary, 2 for CSV
+0x14: Get sample delay
+0x15: Enable sensor - followed by which sensor
+0x16: Disable sensor - followed by which sensor
+0x17: Get enabled sensors mask
 '''
 
 
