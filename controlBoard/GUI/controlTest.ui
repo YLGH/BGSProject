@@ -20,7 +20,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabs">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="main_tab" native="true">
       <attribute name="title">
@@ -126,7 +126,7 @@
        </property>
       </widget>
      </widget>
-     <widget class="QWidget" name="sensor_tab_2" native="true">
+     <widget class="QWidget" name="sensor_tab" native="true">
       <attribute name="title">
        <string>Sensors</string>
       </attribute>
@@ -217,5 +217,22 @@
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>sample_rate</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>sample_rate_display</receiver>
+   <slot>display(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>563</x>
+     <y>481</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>621</x>
+     <y>483</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
