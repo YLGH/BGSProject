@@ -14,26 +14,13 @@ class MyWidget(QtGui.QWidget, form_class):
 		self.start_logging_button.clicked.connect(self.start_logging_handle)
 		self.stop_logging_button.clicked.connect(self.stop_logging_handle)
 
-		self.sensor_one_setName.clicked.connect(self.sensor_one_setName_handle)
-		self.sensor_one_enable.toggled.connect(self.sensor_one_enable_handle)
-
-		self.sensor_two_setName.clicked.connect(self.sensor_two_setName_handle)
-		self.sensor_two_enable.toggled.connect(self.sensor_two_enable_handle)
-
-		self.sensor_three_setName.clicked.connect(self.sensor_three_setName_handle)
-		self.sensor_three_enable.toggled.connect(self.sensor_three_enable_handle)
-
-		self.sensor_four_setName.clicked.connect(self.sensor_four_setName_handle)
-		self.sensor_four_enable.toggled.connect(self.sensor_four_enable_handle)
+		self.save_setting_button.clicked.connect(self.save_setting_handle)
 
 	def initialize_handle(self):
 		print "Initializing"
 		board.initialize_card()
 
 	def start_logging_handle(self):
-		setFile = {0: board.set_CSV, 1: board.set_Binary}
-		setFile[self.filetype.currentIndex()]()
-		board.set_sample_rate(self.sample_rate.value())
 		board.start_logging()
 		print "Start logging"
 
@@ -41,41 +28,33 @@ class MyWidget(QtGui.QWidget, form_class):
 		board.stop_logging()
 		print "Stopped Logging"
 
-	def sensor_one_setName_handle(self):
-		board.set_sensor_name(1, str(self.sensor_one_name.text()))
-		print self.sensor_one_name.text()
-	def sensor_one_enable_handle(self):
-		if(self.sensor_one_enable.isChecked()):
+	def save_setting_handle(self):
+		setFile = {0: board.set_CSV, 1: board.set_Binary}
+		setFile[self.filetype.currentIndex()]()
+		
+		board.set_sample_rate(self.sample_rate.value())
+
+		board.set_sample_name(1, str(self.sensor_one_name.text()))
+		board.set_sample_name(2, str(self.sensor_two_name.text()))
+		board.set_sample_name(3, str(self.sensor_three_name.text()))
+		board.set_sample_name(4, str(self.sensor_four_name.text()))
+
+		if(self.check_one.isChecked()):
 			board.enable_sensor(1)
 		else:
 			board.disable_sensor(1)
 
-
-	def sensor_two_setName_handle(self):
-		board.set_sensor_name(2, str(self.sensor_two_name.text()))
-		print self.sensor_two_name.text()
-	def sensor_two_enable_handle(self):
-		if(self.sensor_two_enable.isChecked()):
+		if(self.check_two.isChecked()):
 			board.enable_sensor(2)
 		else:
 			board.disable_sensor(2)
 
-
-	def sensor_three_setName_handle(self):
-		board.set_sensor_name(3, str(self.sensor_three_name.text()))
-		print self.sensor_three_name.text()
-	def sensor_three_enable_handle(self):
-		if(self.sensor_three_enable.isChecked()):
+		if(self.check_three.isChecked()):
 			board.enable_sensor(3)
 		else:
 			board.disable_sensor(3)
 
-
-	def sensor_four_setName_handle(self):
-		board.set_sensor_name(4, str(self.sensor_four_name.text()))
-		print self.sensor_four_name.text()
-	def sensor_four_enable_handle(self):
-		if(self.sensor_four_enable.isChecked()):
+		if(self.check_four.isChecked()):
 			board.enable_sensor(4)
 		else:
 			board.disable_sensor(4)
