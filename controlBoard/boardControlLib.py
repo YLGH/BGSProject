@@ -25,11 +25,24 @@ class BoardControlLib:
 		fileType = f.Binary(self.spi)
 		fileType.indicate()
 
+	def get_file_format(self):
+		self.spi.xfer([0x14])
+		val = self.spi.xfer([0xff])[0]
+		if val == 1: return "Raw"
+		elif val == 2: return "CSV"
+		else: return "ERROR"
+
 	def set_sample_rate(self, sampleRate):
 		self.spi.xfer([0x03])
 		self.spi.xfer([2])
 		sd = int(1000/sampleRate)
 		self.spi.xfer([(sd >> 8) & 0xFF, sd & 0xFF])
+
+	def get_sample_rate(self):
+		self.spi.xfer([0x13])
+		val = self.spi.xfer([0xff]*2)
+		sr = 1000.0/((val[0]<<8)+val[1])
+		return sr
 
 	def start_logging(self):
 		assert(self.cardInitialized), "CARD IS NOT INITIALIZED"
@@ -63,6 +76,15 @@ class BoardControlLib:
 		self.spi.xfer([index-1])
 		for letter in name_String:
 			self.spi.xfer([ord(letter)])
+		time.sleep(0.2)
+
+	def get_name_sensor(self, index):
+		self.spi.xfer([0x12])
+		self.spi.xfer([0x01])
+		self.spi.xfer([index-1])
+		namelen = self.spi.xfer([0xff])[0]
+		assert(namelen<32), "NAME TOO LONG?!?"
+		return ''.join(map(chr, self.spi.xfer([0xff]*namelen)))
 
 	def get_firmware_string(self):
 		self.spi.xfer([0x11])
@@ -87,6 +109,7 @@ class BoardControlLib:
 0x09: CSV FileType
 0x0A-F: reserved for file type
 0x11: report firmware version String
+0x12: Get sensor name - followed by which sensor
 '''
 
 

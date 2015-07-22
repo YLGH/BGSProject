@@ -2,7 +2,7 @@ import sys
 from PyQt4 import QtCore, QtGui, uic
 import boardControlLib as b
 
-board = BoardControlLib()
+board = b.BoardControlLib()
 
 form_class = uic.loadUiType("controlTest.ui")[0]
 
@@ -16,6 +16,7 @@ class MyWindowClass(QtGui.QMainWindow, form_class):
 
 	def initialize_handle(self):
 		board.initialize_card()
+		print(self.sample_Rate.value())
 		board.set_sample_rate(self.sample_Rate.value())
 		print "Initializing"
 
