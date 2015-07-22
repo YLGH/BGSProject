@@ -22,7 +22,7 @@ class MyWidget(QtGui.QWidget, form_class):
 		print "Initializing"
 
 	def start_logging_handle(self):
-		board.set_sample_rate(self.sample_Rate.value())
+		board.set_sample_rate(self.sample_rate.value())
 		board.start_logging()
 		print "Start logging"
 
@@ -31,7 +31,7 @@ class MyWidget(QtGui.QWidget, form_class):
 		print "Stopped Logging"
 
 	def sensor_one_setName_handle(self):
-		board.set_name_sensor(1, self.sensor_one_name.text())
+		board.set_name_sensor(1, str(self.sensor_one_name.text()))
 
 	def sensor_one_enable_handle(self):
 		print self.sensor_one_enable.isChecked()
