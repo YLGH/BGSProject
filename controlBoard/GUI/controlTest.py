@@ -13,7 +13,6 @@ class MyWidget(QtGui.QWidget, form_class):
 		self.initialize_card_button.clicked.connect(self.initialize_handle)
 		self.start_logging_button.clicked.connect(self.start_logging_handle)
 		self.stop_logging_button.clicked.connect(self.stop_logging_handle)
-
 		self.save_setting_button.clicked.connect(self.save_setting_handle)
 
 	def initialize_handle(self):
