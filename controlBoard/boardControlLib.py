@@ -37,14 +37,14 @@ class BoardControlLib:
 	def set_sample_rate(self, sampleRate):
 		assert(not self.recording), "Can't change while recording!"
 		self.spi.xfer([0x03])
-		self.spi.xfer([2])
-		sd = int(1000/sampleRate)
-		self.spi.xfer([(sd >> 8) & 0xFF, sd & 0xFF])
+		self.spi.xfer([4])
+		sd = int(100000/sampleRate)
+		self.spi.xfer([(sd >> 24) & 0xFF, (sd>>16) & 0xFF, (sd >> 8) & 0xFF, sd & 0xFF])
 
 	def get_sample_rate(self):
 		self.spi.xfer([0x13])
-		val = self.spi.xfer([0xff]*2)
-		sr = 1000.0/((val[0]<<8)+val[1])
+		val = self.spi.xfer([0xff]*4)
+		sr = 100000.0/((val[0]<<24) + (val[1]<<16) + (val[2]<<8) + val[3])
 		return sr
 
 	def start_logging(self):
