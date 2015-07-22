@@ -178,7 +178,7 @@
         </property>
        </item>
       </widget>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="save_setting_button">
        <property name="geometry">
         <rect>
          <x>350</x>
@@ -198,7 +198,7 @@
       <zorder>sample_rate_display</zorder>
       <zorder>filetype</zorder>
       <zorder>initialize_card_button</zorder>
-      <zorder>pushButton</zorder>
+      <zorder>save_setting_button</zorder>
      </widget>
      <widget class="QWidget" name="sensor_tab">
       <attribute name="title">
