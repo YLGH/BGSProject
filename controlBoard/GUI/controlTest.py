@@ -42,25 +42,25 @@ class MyWidget(QtGui.QWidget, form_class):
 		print "Stopped Logging"
 
 	def sensor_one_setName_handle(self):
-		board.set_name_sensor(1, str(self.sensor_one_name.text()))
+		board.set_sensor_name(1, str(self.sensor_one_name.text()))
 		print self.sensor_one_name.text()
 	#def sensor_one_enable_handle(self):
 		#print self.sensor_one_enable.isChecked()
 
 	def sensor_two_setName_handle(self):
-		board.set_name_sensor(2, str(self.sensor_two_name.text()))
+		board.set_sensor_name(2, str(self.sensor_two_name.text()))
 		print self.sensor_two_name.text()
 	#def sensor_two_enable_handle(self):
 	#	print self.sensor_two_enable.isChecked()
 
 	def sensor_three_setName_handle(self):
-		board.set_name_sensor(3, str(self.sensor_three_name.text()))
+		board.set_sensor_name(3, str(self.sensor_three_name.text()))
 		print self.sensor_three_name.text()
 	#def sensor_three_enable_handle(self):
 	#	print self.sensor_three_enable.isChecked()
 
 	def sensor_four_setName_handle(self):
-		board.set_name_sensor(4, str(self.sensor_four_name.text()))
+		board.set_sensor_name(4, str(self.sensor_four_name.text()))
 		print self.sensor_four_name.text()
 	#def sensor_four_enable_handle(self):
 	#	print self.sensor_four_enable.isChecked()
