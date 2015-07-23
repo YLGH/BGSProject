@@ -90,10 +90,10 @@ class MyWidget(QtGui.QMainWindow, form_class):
 		fname = QtGui.QFileDialog.getOpenFileName(self, 'Load Settings')
 		file_load = open(fname, 'r') 
 
-		self.sensor_one_name.setText(file_load.readline().split(" ")[1].strip())
-		self.sensor_two_name.setText(file_load.readline().split(" ")[1].strip())
-		self.sensor_three_name.setText(file_load.readline().split(" ")[1].strip())
-		self.sensor_four_name.setText(file_load.readline().split(" ")[1].strip())
+		self.sensor_one_name.setText(" ".join(file_load.readline().split(" ")[1:]).strip())
+		self.sensor_two_name.setText(" ".join(file_load.readline().split(" ")[1:]).strip())
+		self.sensor_three_name.setText(" ".join(file_load.readline().split(" ")[1:]).strip())
+		self.sensor_four_name.setText(" ".join(file_load.readline().split(" ")[1:]).strip())
 
 		self.check_one.setChecked(file_load.readline().split(" ")[1].lower().strip() in ["true", "yes", "1"])
 		self.check_two.setChecked(file_load.readline().split(" ")[1].lower().strip() in ["true", "yes", "1"])
