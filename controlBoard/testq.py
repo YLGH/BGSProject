@@ -5,11 +5,11 @@ test = b.BoardControlLib()
 
 print "Board version:", test.get_firmware_string()
 
-print "Setting names..."
-test.set_sensor_name(1, "Hello")
-test.set_sensor_name(2, "this")
-test.set_sensor_name(3, "is")
-test.set_sensor_name(4, "test")
+#print "Setting names..."
+#test.set_sensor_name(1, "Hello")
+#test.set_sensor_name(2, "this")
+#test.set_sensor_name(3, "is")
+#test.set_sensor_name(4, "test")
 
 #print "Enabling sensor 1 only."
 #test.enable_sensor(1)
@@ -39,14 +39,14 @@ if test.initialize_card():
 	
 	#print "Switching to CSV Format..."
 	
-	print "Logging .csv for 2 second at 5SPS..."
-	#test.set_CSV()
+#	print "Logging .csv for 2 second at 5SPS..."
+#	test.set_CSV()
 #	test.set_Binary()
 #	test.set_sample_rate(5)
 #	test.start_logging()
 #	time.sleep(2)
 #	test.stop_logging()
-	print "Done!"
+#	print "Done!"
 	
 #	print "Logging .bin for 4 seconds at 1000SPS..."
 #	test.set_Binary()
