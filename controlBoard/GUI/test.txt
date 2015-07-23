@@ -1,0 +1,10 @@
+channel_1_name THIS
+channel_2_name IS
+channel_3_name A T
+channel_4_name EST
+channel_1_enabled True
+channel_2_enabled True
+channel_3_enabled True
+channel_4_enabled False
+sample_delay 1111
+file_format raw

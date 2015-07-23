@@ -28,387 +28,239 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
+  <layout class="QFormLayout" name="formLayout">
+   <property name="fieldGrowthPolicy">
+    <enum>QFormLayout::FieldsStayAtSizeHint</enum>
+   </property>
    <item row="0" column="0">
-    <widget class="QTabWidget" name="tabs">
-     <property name="maximumSize">
-      <size>
-       <width>938</width>
-       <height>662</height>
-      </size>
-     </property>
-     <property name="autoFillBackground">
-      <bool>true</bool>
-     </property>
-     <property name="currentIndex">
-      <number>0</number>
-     </property>
-     <widget class="QWidget" name="main_tab">
-      <attribute name="title">
-       <string>Main Control</string>
-      </attribute>
-      <widget class="QPushButton" name="start_logging_button">
-       <property name="geometry">
-        <rect>
-         <x>460</x>
-         <y>470</y>
-         <width>110</width>
-         <height>32</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Start Logging</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="stop_logging_button">
-       <property name="geometry">
-        <rect>
-         <x>460</x>
-         <y>500</y>
-         <width>111</width>
-         <height>32</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Stop Logging</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="initialize_card_button">
-       <property name="geometry">
-        <rect>
-         <x>350</x>
-         <y>470</y>
-         <width>111</width>
-         <height>32</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Initialize Card</string>
-       </property>
-      </widget>
-      <widget class="QSlider" name="sample_rate">
-       <property name="geometry">
-        <rect>
-         <x>350</x>
-         <y>440</y>
-         <width>221</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <property name="whatsThis">
-        <string>p</string>
-       </property>
-       <property name="minimum">
-        <number>1</number>
-       </property>
-       <property name="maximum">
-        <number>100</number>
-       </property>
-       <property name="tracking">
-        <bool>true</bool>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="invertedAppearance">
-        <bool>false</bool>
-       </property>
-       <property name="invertedControls">
-        <bool>false</bool>
-       </property>
-       <property name="tickPosition">
-        <enum>QSlider::TicksAbove</enum>
-       </property>
-      </widget>
-      <widget class="QLabel" name="sample_rate_label">
-       <property name="geometry">
-        <rect>
-         <x>420</x>
-         <y>420</y>
-         <width>81</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Sample Rate</string>
-       </property>
-      </widget>
-      <widget class="QLCDNumber" name="sample_rate_display">
-       <property name="geometry">
-        <rect>
-         <x>590</x>
-         <y>440</y>
-         <width>64</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="smallDecimalPoint">
-        <bool>true</bool>
-       </property>
-       <property name="digitCount">
-        <number>5</number>
-       </property>
-       <property name="segmentStyle">
-        <enum>QLCDNumber::Flat</enum>
-       </property>
-       <property name="intValue" stdset="0">
-        <number>1</number>
-       </property>
-      </widget>
-      <widget class="QComboBox" name="filetype">
-       <property name="geometry">
-        <rect>
-         <x>390</x>
-         <y>540</y>
-         <width>141</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <item>
-        <property name="text">
-         <string>CVS</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Binary</string>
-        </property>
-       </item>
-      </widget>
-      <widget class="QPushButton" name="save_setting_button">
-       <property name="geometry">
-        <rect>
-         <x>350</x>
-         <y>500</y>
-         <width>110</width>
-         <height>32</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Save Settings</string>
-       </property>
-      </widget>
-      <zorder>start_logging_button</zorder>
-      <zorder>stop_logging_button</zorder>
-      <zorder>sample_rate</zorder>
-      <zorder>sample_rate_label</zorder>
-      <zorder>sample_rate_display</zorder>
-      <zorder>filetype</zorder>
-      <zorder>initialize_card_button</zorder>
-      <zorder>save_setting_button</zorder>
-     </widget>
-     <widget class="QWidget" name="sensor_tab">
-      <attribute name="title">
-       <string>Sensors</string>
-      </attribute>
-      <widget class="QLineEdit" name="sensor_one_name">
-       <property name="geometry">
-        <rect>
-         <x>100</x>
-         <y>30</y>
-         <width>211</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="maxLength">
-        <number>20</number>
-       </property>
-       <property name="cursorPosition">
-        <number>0</number>
-       </property>
-       <property name="cursorMoveStyle">
-        <enum>Qt::VisualMoveStyle</enum>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="sensor_two_name">
-       <property name="geometry">
-        <rect>
-         <x>100</x>
-         <y>60</y>
-         <width>211</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="maxLength">
-        <number>20</number>
-       </property>
-       <property name="cursorPosition">
-        <number>0</number>
-       </property>
-       <property name="cursorMoveStyle">
-        <enum>Qt::VisualMoveStyle</enum>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="sensor_three_name">
-       <property name="geometry">
-        <rect>
-         <x>100</x>
-         <y>90</y>
-         <width>211</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="maxLength">
-        <number>20</number>
-       </property>
-       <property name="cursorPosition">
-        <number>0</number>
-       </property>
-       <property name="cursorMoveStyle">
-        <enum>Qt::VisualMoveStyle</enum>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="sensor_four_name">
-       <property name="geometry">
-        <rect>
-         <x>100</x>
-         <y>120</y>
-         <width>211</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="maxLength">
-        <number>20</number>
-       </property>
-       <property name="cursorPosition">
-        <number>0</number>
-       </property>
-       <property name="cursorMoveStyle">
-        <enum>Qt::VisualMoveStyle</enum>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="check_one">
-       <property name="geometry">
-        <rect>
-         <x>320</x>
-         <y>30</y>
-         <width>21</width>
-         <height>18</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="check_two">
-       <property name="geometry">
-        <rect>
-         <x>320</x>
-         <y>60</y>
-         <width>21</width>
-         <height>18</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="check_three">
-       <property name="geometry">
-        <rect>
-         <x>320</x>
-         <y>90</y>
-         <width>21</width>
-         <height>18</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="check_four">
-       <property name="geometry">
-        <rect>
-         <x>320</x>
-         <y>120</y>
-         <width>21</width>
-         <height>18</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-      <widget class="QLabel" name="sensor_one_label">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>33</y>
-         <width>81</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Sensor One</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="sensor_two_label">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>60</y>
-         <width>81</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Sensor Two</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="sensor_three_label">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>90</y>
-         <width>81</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Sensor Three</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="sensor_four_label">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>120</y>
-         <width>81</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Sensor Four</string>
-       </property>
-      </widget>
-     </widget>
+    <widget class="QWidget" name="widget" native="true">
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0">
+         <widget class="QLabel" name="sensor_one_label">
+          <property name="text">
+           <string>Sensor One</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1" colspan="3">
+         <widget class="QLineEdit" name="sensor_one_name">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="maxLength">
+           <number>20</number>
+          </property>
+          <property name="cursorPosition">
+           <number>0</number>
+          </property>
+          <property name="cursorMoveStyle">
+           <enum>Qt::VisualMoveStyle</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="4">
+         <widget class="QCheckBox" name="check_one">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="sensor_two_label">
+          <property name="text">
+           <string>Sensor Two</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1" colspan="3">
+         <widget class="QLineEdit" name="sensor_two_name">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="maxLength">
+           <number>20</number>
+          </property>
+          <property name="cursorPosition">
+           <number>0</number>
+          </property>
+          <property name="cursorMoveStyle">
+           <enum>Qt::VisualMoveStyle</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="4">
+         <widget class="QCheckBox" name="check_two">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="sensor_three_label">
+          <property name="text">
+           <string>Sensor Three</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1" colspan="3">
+         <widget class="QLineEdit" name="sensor_three_name">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="maxLength">
+           <number>20</number>
+          </property>
+          <property name="cursorPosition">
+           <number>0</number>
+          </property>
+          <property name="cursorMoveStyle">
+           <enum>Qt::VisualMoveStyle</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="4">
+         <widget class="QCheckBox" name="check_three">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="sensor_four_label">
+          <property name="text">
+           <string>Sensor Four</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1" colspan="3">
+         <widget class="QLineEdit" name="sensor_four_name">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="maxLength">
+           <number>20</number>
+          </property>
+          <property name="cursorPosition">
+           <number>0</number>
+          </property>
+          <property name="cursorMoveStyle">
+           <enum>Qt::VisualMoveStyle</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="4">
+         <widget class="QCheckBox" name="check_four">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1" colspan="2">
+         <widget class="QLabel" name="sample_rate_label">
+          <property name="text">
+           <string>Sample Rate</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0" colspan="3">
+         <widget class="QSlider" name="sample_rate">
+          <property name="whatsThis">
+           <string>p</string>
+          </property>
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>100</number>
+          </property>
+          <property name="tracking">
+           <bool>true</bool>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="invertedAppearance">
+           <bool>false</bool>
+          </property>
+          <property name="invertedControls">
+           <bool>false</bool>
+          </property>
+          <property name="tickPosition">
+           <enum>QSlider::TicksAbove</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="3" colspan="2">
+         <widget class="QLCDNumber" name="sample_rate_display">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="smallDecimalPoint">
+           <bool>true</bool>
+          </property>
+          <property name="digitCount">
+           <number>5</number>
+          </property>
+          <property name="segmentStyle">
+           <enum>QLCDNumber::Flat</enum>
+          </property>
+          <property name="intValue" stdset="0">
+           <number>1</number>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0" colspan="2">
+         <widget class="QPushButton" name="initialize_card_button">
+          <property name="text">
+           <string>Initialize Card</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="2">
+         <widget class="QPushButton" name="start_logging_button">
+          <property name="text">
+           <string>Start Logging</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="0" colspan="2">
+         <widget class="QPushButton" name="save_setting_button">
+          <property name="text">
+           <string>Save Settings</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="2">
+         <widget class="QPushButton" name="stop_logging_button">
+          <property name="text">
+           <string>Stop Logging</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="1" colspan="2">
+         <widget class="QComboBox" name="filetype">
+          <item>
+           <property name="text">
+            <string>CVS</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Binary</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="9"/>
- <tabstops>
-  <tabstop>start_logging_button</tabstop>
-  <tabstop>stop_logging_button</tabstop>
-  <tabstop>initialize_card_button</tabstop>
-  <tabstop>sample_rate</tabstop>
-  <tabstop>filetype</tabstop>
- </tabstops>
  <resources/>
  <connections>
   <connection>
@@ -418,12 +270,12 @@
    <slot>display(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>563</x>
-     <y>481</y>
+     <x>546</x>
+     <y>189</y>
     </hint>
     <hint type="destinationlabel">
-     <x>621</x>
-     <y>483</y>
+     <x>599</x>
+     <y>188</y>
     </hint>
    </hints>
   </connection>
