@@ -24,7 +24,6 @@ class BoardControlLib:
 		self.spi.xfer([index-1])
 		for letter in name_String:
 			self.spi.xfer([ord(letter)])
-		time.sleep(0.2)
 	
 	def set_sample_rate(self, sampleRate):
 		assert(not self.recording), "Can't change while recording!"
@@ -32,7 +31,6 @@ class BoardControlLib:
 		self.spi.xfer([4])
 		sd = int(100000/sampleRate)
 		self.spi.xfer([(sd >> 24) & 0xFF, (sd>>16) & 0xFF, (sd >> 8) & 0xFF, sd & 0xFF])
-		time.sleep(0.2)
 
 	def start_logging(self):
 		assert(self.cardInitialized), "CARD IS NOT INITIALIZED"
@@ -103,14 +101,12 @@ class BoardControlLib:
 		self.spi.xfer([0x15])
 		self.spi.xfer([0x01])
 		self.spi.xfer([index-1])
-		time.sleep(0.2)
 
 	def disable_sensor(self, index):
 		assert(not self.recording), "Can't change while recording!"
 		self.spi.xfer([0x16])
 		self.spi.xfer([0x01])
 		self.spi.xfer([index-1])
-		time.sleep(0.2)
 
 	def is_sensor_enabled(self, index):
 		self.spi.xfer([0x17])
@@ -146,6 +142,7 @@ class BoardControlLib:
 	
 	def save_settings(self):
 		self.spi.xfer([0x23])
+		time.sleep(0.2)
 
 
 '''
