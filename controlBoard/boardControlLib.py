@@ -138,6 +138,12 @@ class BoardControlLib:
 		self.spi.xfer([4])
 		self.spi.xfer([(timestamp >> 24) & 0xFF, (timestamp>>16) & 0xFF, (timestamp >> 8) & 0xFF, timestamp & 0xFF])
 
+	def get_rtc_time(self):
+		self.spi.xfer([0x23])
+		val = self.spi.xfer([0xff]*4)
+		ts = (val[0]<<24) + (val[1]<<16) + (val[2]<<8) + val[3]
+		return ts
+	
 	def save_settings(self):
 		self.spi.xfer([0x23])
 
@@ -165,7 +171,8 @@ class BoardControlLib:
 0x20: Enable scheduling
 0x21: Disable scheduling
 0x22: Set RTC time - followed by 4-byte unix timestamp
-0x23: Save settings to EEPROM
+0x23: Get RTC time
+0x24: Save settings to EEPROM
 '''
 
 
