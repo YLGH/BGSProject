@@ -148,6 +148,17 @@ class BoardControlLib:
 		self.spi.xfer([0x25])
 		return self.spi.xfer([0xff])[0] == 1
 
+	def get_scheduled_start(self):
+		self.spi.xfer([0x26])
+		val = self.spi.xfer([0xff]*4)
+		return (val[0]<<24) + (val[1]<<16) + (val[2]<<8) + val[3]
+
+	def get_scheduled_end(self):
+		self.spi.xfer([0x27])
+		val = self.spi.xfer([0xff]*4)
+		return (val[0]<<24) + (val[1]<<16) + (val[2]<<8) + val[3]
+		
+
 
 '''
 0x01: We want to retrieve the information on the four sensors
@@ -174,6 +185,9 @@ class BoardControlLib:
 0x22: Set RTC time - followed by 4-byte unix timestamp
 0x23: Get RTC time
 0x24: Save settings to EEPROM
+0x25: Is scheduling enabled?
+0x26: Get scheduled start time
+0x27: Get scheduled end time
 '''
 
 

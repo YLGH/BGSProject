@@ -5,7 +5,7 @@ test = b.BoardControlLib()
 
 print "Board version:", test.get_firmware_string()
 
-#print "Setting names..."
+print "Setting names..."
 #test.set_sensor_name(1, "Hello")
 #test.set_sensor_name(2, "this")
 #test.set_sensor_name(3, "is")
@@ -32,6 +32,11 @@ print "Sensor 1 enabled:", test.is_sensor_enabled(1)
 print "Sensor 2 enabled:", test.is_sensor_enabled(2)
 print "Sensor 3 enabled:", test.is_sensor_enabled(3)
 print "Sensor 4 enabled:", test.is_sensor_enabled(4)
+
+print "Scheduling enabled:", test.is_scheduling_enabled()
+
+print "Scheduling start:", test.get_scheduling_start()
+print "Scheduling end:", test.get_scheduling_end()
 
 print "Connecting to card..."
 if test.initialize_card():
