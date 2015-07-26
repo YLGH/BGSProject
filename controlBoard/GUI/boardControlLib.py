@@ -141,7 +141,7 @@ class BoardControlLib:
 		return ts
 	
 	def save_settings(self):
-		self.spi.xfer([0x23])
+		self.spi.xfer([0x24])
 		time.sleep(0.2)
 
 
