@@ -1,8 +1,9 @@
 import sys
 from PyQt4 import QtCore, QtGui, uic
-import boardControlLib as b
+import boardControlLib2 as b
+import time
 
-board = b.BoardControlLib()
+board = b.BoardControlLib2()
 
 form_class = uic.loadUiType("Settings.ui")[0]
 
@@ -11,24 +12,41 @@ class MyWidget(QtGui.QMainWindow, form_class):
 		QtGui.QMainWindow.__init__(self, parent)
 		self.setupUi(self)
 		self.initialize_card_button.clicked.connect(self.initialize_handle)
-		self.start_logging_button.clicked.connect(self.start_logging_handle)
-		self.stop_logging_button.clicked.connect(self.stop_logging_handle)
+		self.logging_button.clicked.connect(self.start_logging_handle)
+		self.schedule_button.clicked.connect(self.schedule_button_handle)
+
 		self.save_setting_button.clicked.connect(self.save_setting_handle)
 
 		self.file_save_button.clicked.connect(self.file_save_handle)
 		self.file_load_button.clicked.connect(self.file_load_handle)
+
 
 	def initialize_handle(self):
 		print "Initializing"
 		board.initialize_card()
 
 	def start_logging_handle(self):
-		board.start_logging()
-		print "Start logging"
+		logging = (self.logging_button.text() == 'Stop Logging')
 
-	def stop_logging_handle(self):
-		board.stop_logging()
-		print "Stopped Logging"
+		if(not logging):
+			board.start_logging()
+			print "Start logging"
+			self.logging_button.setText("Stop Logging")
+		else:
+			board.stop_logging()
+			print "Stop logging"
+			self.logging_button.setText("Start Logging")
+
+	def schedule_button_handle(self):
+		status = (self.schedule_button.text() == "Stop Scheduling")
+		if(not status):
+			board.enable_scheduling()
+			print "Start Scheduling"
+			self.schedule_button.setText("Stop Scheduling")
+		else:
+			board.disable_scheduling()
+			print "Stop Scheduling"
+			self.schedule_button.setText("Start Schedulng")
 
 	def save_setting_handle(self):
 		setFile = {0: board.set_CSV, 1: board.set_Binary}
@@ -64,6 +82,16 @@ class MyWidget(QtGui.QMainWindow, form_class):
 			board.enable_sensor(4)
 		else:
 			board.disable_sensor(4)
+
+		start = self.start_time.dateTime().toPyDateTime()
+		end = self.end_time.dateTime().toPyDateTime()
+
+		start_unix =  time.mktime(start.timetuple())
+		end_unix = time.mktime(end.timetuple())
+
+		board.set_scheduled_start(start_unix)
+		board.set_scheduled_end(end_unix)
+
 
 	def file_save_handle(self):
 		fname = QtGui.QFileDialog.getSaveFileName(self, 'Save As')
