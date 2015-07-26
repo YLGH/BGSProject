@@ -143,6 +143,10 @@ class BoardControlLib:
 	def save_settings(self):
 		self.spi.xfer([0x24])
 		time.sleep(0.2)
+	
+	def is_scheduling_enabled(self):
+		self.spi.xfer([0x25])
+		return self.spi.xfer([0xff])[0] == 1
 
 
 '''
