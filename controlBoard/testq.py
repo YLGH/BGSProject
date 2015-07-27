@@ -3,7 +3,7 @@ import time
 import datetime
 import calendar
 
-test = b.BoardControlLib()
+test = b.BoardControlLib('COM6')
 
 print "Board version:", test.get_firmware_string()
 
