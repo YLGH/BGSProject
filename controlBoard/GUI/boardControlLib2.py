@@ -19,11 +19,12 @@ class BoardControlLib2:
 	def is_card_ready(self):
 		pass
 
-	def set_Raw(self):
+	def set_raw(self):
 		pass
 		
-	def set_CSV(self):
+	def set_csv(self):
 		pass
+		
 	def get_firmware_string(self):
 		pass
 		
