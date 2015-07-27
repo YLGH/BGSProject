@@ -1,12 +1,35 @@
-import spidev
 import Filetype as f
 import Sensor as s
 import time
 from math import floor
 
+class UARTComm:
+	def __init__(self, cport):
+		import serial
+		self.ser = serial.Serial(cport, 115200)
+	
+	def send(self, vals):
+		self.ser.write(vals)
+	
+	def recv(self, count):
+		val = bytearray(self.ser.read(count))
+		return val
+
+class SPIComm:
+	def __init__(self):
+		import spidev
+		self.spi = spidev.SpiDev()
+		self.spi.open(0,0)
+	
+	def send(self, vals):
+		self.spi.xfer(vals)
+	
+	def recv(self, count):
+		return self.spi.xfer([0xff]*count)
+
 class BoardControlLib:
 
-	def __init__(self):
+	def __init__(self, cport=None):
 
 		self.cardInitialized = False
 		self.recording = False
@@ -14,37 +37,45 @@ class BoardControlLib:
 		self.sensors = [s.Sensor(), s.Sensor(), s.Sensor(), s.Sensor()]
 		self.fileType = f.Filetype()
 
-		self.spi = spidev.SpiDev()
-		self.spi.open(0,0)
+		if cport is None:
+			self.comm = SPIComm()
+		else:
+			self.comm = UARTComm(cport)
 
+	def send(self, vals):
+		self.comm.send(vals)
+	
+	def recv(self, count):
+		return self.comm.recv(count)
+		
 	def set_sensor_name(self, index, name_String):
 		assert(not self.recording), "Can't change while recording!"
-		self.spi.xfer([0x02])
-		self.spi.xfer([len(name_String) + 1])
-		self.spi.xfer([index-1])
+		self.send([0x02])
+		self.send([len(name_String) + 1])
+		self.send([index-1])
 		for letter in name_String:
-			self.spi.xfer([ord(letter)])
+			self.send([ord(letter)])
 	
 	def set_sample_rate(self, sampleRate):
 		assert(not self.recording), "Can't change while recording!"
-		self.spi.xfer([0x03])
-		self.spi.xfer([4])
+		self.send([0x03])
+		self.send([4])
 		sd = int(100000/sampleRate)
-		self.spi.xfer([(sd >> 24) & 0xFF, (sd>>16) & 0xFF, (sd >> 8) & 0xFF, sd & 0xFF])
+		self.send([(sd >> 24) & 0xFF, (sd>>16) & 0xFF, (sd >> 8) & 0xFF, sd & 0xFF])
 
 	def start_logging(self):
 		assert(self.cardInitialized), "CARD IS NOT INITIALIZED"
-		self.spi.xfer([0x04])
+		self.send([0x04])
 		self.recording = True
 
 	def stop_logging(self):
 		assert(self.recording), "CARD IS NOT RECORDING"
-		self.spi.xfer([0x05])
+		self.send([0x05])
 		self.recording = False
 
 	def initialize_card(self):
 		assert(not self.recording), "Can't initialize while recording!"
-		self.spi.xfer([0x06])
+		self.send([0x06])
 		reps = 0
 		while reps<20:
 			if self.is_card_ready():
@@ -56,8 +87,8 @@ class BoardControlLib:
 		return False
 
 	def is_card_ready(self):
-		self.spi.xfer([0x07])
-		return (self.spi.xfer([0xff])[0] == 1)
+		self.send([0x07])
+		return (self.recv(1)[0] == 1)
 
 	def set_Raw(self):
 		assert(not self.recording), "Can't change while recording!"
@@ -70,92 +101,92 @@ class BoardControlLib:
 		fileType.indicate()
 		
 	def get_firmware_string(self):
-		self.spi.xfer([0x11])
-		namelen = self.spi.xfer([0xff])[0]
+		self.send([0x11])
+		namelen = self.recv(1)[0]
 		assert(namelen<32), "NAME TOO LONG?!?"
-		return ''.join(map(chr, self.spi.xfer([0xff]*namelen)))
+		return ''.join(map(chr, self.recv(namelen)))
 		
 	def get_sensor_name(self, index):
-		self.spi.xfer([0x12])
-		self.spi.xfer([0x01])
-		self.spi.xfer([index-1])
-		namelen = self.spi.xfer([0xff])[0]
+		self.send([0x12])
+		self.send([0x01])
+		self.send([index-1])
+		namelen = self.recv(1)[0]
 		assert(namelen<32), "NAME TOO LONG?!?"
-		return ''.join(map(chr, self.spi.xfer([0xff]*namelen)))
+		return ''.join(map(chr, self.recv(namelen)))
 
 	def get_sample_rate(self):
-		self.spi.xfer([0x13])
-		val = self.spi.xfer([0xff]*4)
+		self.send([0x13])
+		val = self.recv(4)
 		sr = 100000.0/((val[0]<<24) + (val[1]<<16) + (val[2]<<8) + val[3])
 		return sr
 		
 	def get_file_format(self):
-		self.spi.xfer([0x14])
-		val = self.spi.xfer([0xff])[0]
+		self.send([0x14])
+		val = self.recv(1)[0]
 		if val == 1: return "Raw"
 		elif val == 2: return "CSV"
 		else: return "ERROR"
 	
 	def enable_sensor(self, index):
 		assert(not self.recording), "Can't change while recording!"
-		self.spi.xfer([0x15])
-		self.spi.xfer([0x01])
-		self.spi.xfer([index-1])
+		self.send([0x15])
+		self.send([0x01])
+		self.send([index-1])
 
 	def disable_sensor(self, index):
 		assert(not self.recording), "Can't change while recording!"
-		self.spi.xfer([0x16])
-		self.spi.xfer([0x01])
-		self.spi.xfer([index-1])
+		self.send([0x16])
+		self.send([0x01])
+		self.send([index-1])
 
 	def is_sensor_enabled(self, index):
-		self.spi.xfer([0x17])
-		val = self.spi.xfer([0xff])[0]
+		self.send([0x17])
+		val = self.recv(1)[0]
 		return (val & (1 << (index-1))) > 0
 
 	def set_scheduled_start(self, timestamp):
-		self.spi.xfer([0x18])
-		self.spi.xfer([4])
-		self.spi.xfer([(timestamp >> 24) & 0xFF, (timestamp>>16) & 0xFF, (timestamp >> 8) & 0xFF, timestamp & 0xFF])
+		self.send([0x18])
+		self.send([4])
+		self.send([(timestamp >> 24) & 0xFF, (timestamp>>16) & 0xFF, (timestamp >> 8) & 0xFF, timestamp & 0xFF])
 	
 	def set_scheduled_end(self, timestamp):
-		self.spi.xfer([0x19])
-		self.spi.xfer([4])
-		self.spi.xfer([(timestamp >> 24) & 0xFF, (timestamp>>16) & 0xFF, (timestamp >> 8) & 0xFF, timestamp & 0xFF])
+		self.send([0x19])
+		self.send([4])
+		self.send([(timestamp >> 24) & 0xFF, (timestamp>>16) & 0xFF, (timestamp >> 8) & 0xFF, timestamp & 0xFF])
 	
 	def enable_scheduling(self):
-		self.spi.xfer([0x20])
+		self.send([0x20])
 		
 	def disable_scheduling(self):
-		self.spi.xfer([0x21])
+		self.send([0x21])
 	
 	def set_rtc_time(self, timestamp):
-		self.spi.xfer([0x22])
-		self.spi.xfer([4])
-		self.spi.xfer([(timestamp >> 24) & 0xFF, (timestamp>>16) & 0xFF, (timestamp >> 8) & 0xFF, timestamp & 0xFF])
+		self.send([0x22])
+		self.send([4])
+		self.send([(timestamp >> 24) & 0xFF, (timestamp>>16) & 0xFF, (timestamp >> 8) & 0xFF, timestamp & 0xFF])
 
 	def get_rtc_time(self):
-		self.spi.xfer([0x23])
-		val = self.spi.xfer([0xff]*4)
+		self.send([0x23])
+		val = self.recv(4)
 		ts = (val[0]<<24) + (val[1]<<16) + (val[2]<<8) + val[3]
 		return ts
 	
 	def save_settings(self):
-		self.spi.xfer([0x24])
+		self.send([0x24])
 		time.sleep(0.2)
 	
 	def is_scheduling_enabled(self):
-		self.spi.xfer([0x25])
-		return self.spi.xfer([0xff])[0] == 1
+		self.send([0x25])
+		return self.recv(1)[0] == 1
 
 	def get_scheduled_start(self):
-		self.spi.xfer([0x26])
-		val = self.spi.xfer([0xff]*4)
+		self.send([0x26])
+		val = self.recv(4)
 		return (val[0]<<24) + (val[1]<<16) + (val[2]<<8) + val[3]
 
 	def get_scheduled_end(self):
-		self.spi.xfer([0x27])
-		val = self.spi.xfer([0xff]*4)
+		self.send([0x27])
+		val = self.recv(4)
 		return (val[0]<<24) + (val[1]<<16) + (val[2]<<8) + val[3]
 		
 
