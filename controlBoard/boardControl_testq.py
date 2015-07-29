@@ -7,24 +7,12 @@ test = b.BoardControlLib('COM6')
 
 print "Board version:", test.get_firmware_string()
 
-#print "Setting names..."
-#test.set_sensor_name(1, "Hello")
-#test.set_sensor_name(2, "this")
-#test.set_sensor_name(3, "is")
-#test.set_sensor_name(4, "test")
-
-#print "Enabling sensor 1 only."
-#test.enable_sensor(1)
-#test.disable_sensor(2)
-#test.disable_sensor(3)
-#test.disable_sensor(4)
-
 print "Sensor 1 name:", test.get_sensor_name(1)
 print "Sensor 2 name:", test.get_sensor_name(2)
 print "Sensor 3 name:", test.get_sensor_name(3)
 print "Sensor 4 name:", test.get_sensor_name(4)
 
-print "Sample rate:", test.get_sample_rate()
+print "Sample rate:", test.get_sample_rsate()
 
 print "File type:", test.get_file_format()
 

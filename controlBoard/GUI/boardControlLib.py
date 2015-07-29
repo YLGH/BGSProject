@@ -59,12 +59,12 @@ class BoardControlLib:
 		self.spi.xfer([0x07])
 		return (self.spi.xfer([0xff])[0] == 1)
 
-	def set_Raw(self):
+	def set_raw(self):
 		assert(not self.recording), "Can't change while recording!"
 		fileType = f.Binary(self.spi)
 		fileType.indicate()
 		
-	def set_CSV(self):
+	def set_csv(self):
 		assert(not self.recording), "Can't change while recording!"
 		fileType = f.CSV(self.spi)
 		fileType.indicate()
