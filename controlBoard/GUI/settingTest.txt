@@ -1,0 +1,8 @@
+channel_1_name 
+channel_2_name 
+channel_3_name 
+channel_4_name 
+sample_delay 100000
+file_format CSV
+start_time 2015-07-27 12:12:20
+end_time 2015-07-27 12:12:20

@@ -9,9 +9,6 @@ class Sensor:
 
 		self.displayFunction = lambda x: x
 
-
-
-
 	def start_logging(self):
 		self.toLog = True
 

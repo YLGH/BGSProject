@@ -1,0 +1,29 @@
+# Channel 1 settings
+channel_1_name		Geophone 1
+channel_1_enabled
+
+
+# Channel 2 settings
+
+channel_2_name	Sensor 2
+
+
+# Disable other channels
+
+channel_3_enabled	
+
+
+# Set sample rate to be 1000
+
+sample_delay		100
+
+
+# Set file type to raw-binary
+
+file_format		raw
+
+
+# Enabled scheduling
+
+start_time		2015-07-26 12:36:12
+end_time		2015-07-26 12:36:30

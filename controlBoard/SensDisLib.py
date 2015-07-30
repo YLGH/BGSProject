@@ -105,11 +105,8 @@ class SensorDisplay:
 
 	def get_raw_sensor(self, index):
 		index -= 1
-<<<<<<< HEAD:SensDisLib.py
-		#assert(self.sensorSet[i]), "This sensor has not been set yet!"
-=======
 		assert(self.sensorSet[i]), "This sensor has not been set yet!"
->>>>>>> 4e2213ffad9ca1b071a78308fc5f5ea0c2e65170:controlBoard/SensDisLib.py
+
 		byteArray = self.spi.xfer([0x01])
 		byteArray = self.spi.xfer([0xff]*8)
 		return (byteArray[2*index] << 8) + byteArray[2*index+1]

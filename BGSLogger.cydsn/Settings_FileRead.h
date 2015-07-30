@@ -1,0 +1,23 @@
+/* ========================================
+ *
+ * Copyright YOUR COMPANY, THE YEAR
+ * All Rights Reserved
+ * UNPUBLISHED, LICENSED SOFTWARE.
+ *
+ * CONFIDENTIAL AND PROPRIETARY INFORMATION
+ * WHICH IS THE PROPERTY OF your company.
+ *
+ * ========================================
+*/
+
+#ifdef __cplusplus
+    extern "C"{
+#endif
+    #include <project.h>
+#ifdef __cplusplus
+    }
+#endif
+
+void Settings_ProcessBuffer(uint8 buf[], uint8 buflen);
+
+/* [] END OF FILE */
