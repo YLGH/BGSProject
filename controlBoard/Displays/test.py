@@ -7,10 +7,11 @@ def voltToTemp(x):
 	return (((x*3.3)/4096.0) - 0.4)/0.01953; 
 
 test = s.SensorDisplay()
-test.add_sensor_three("Piezo Disk")
-test.add_sensor_four("Geophone One")
+#test.add_sensor_three("Piezo Disk")
+#test.add_sensor_four("Geophone One")
 #test.setYRange_sensor_one(1900, 2500)
-#test.add_Sensor_One("Test");
+test.add_sensor_one("Test");
+#test.add_sensor_two("S2");
 #test.add_Sensor_Two("Microphones")
 #test.add_Sensor_Three("TWANGER")
 #test.setYRange_Sensor_Three(1900, 2000)

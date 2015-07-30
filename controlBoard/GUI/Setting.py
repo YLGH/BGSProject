@@ -1,9 +1,9 @@
 import sys
 from PyQt4 import QtCore, QtGui, uic
-import boardControlLib2 as b
+import boardControlLib as b
 import time
 
-board = b.BoardControlLib2()
+board = b.BoardControlLib()
 
 form_class = uic.loadUiType("Settings.ui")[0]
 
@@ -49,7 +49,7 @@ class MyWidget(QtGui.QMainWindow, form_class):
 			self.schedule_button.setText("Start Schedulng")
 
 	def save_setting_handle(self):
-		setFile = {0: board.set_CSV, 1: board.set_Binary}
+		setFile = {0: board.set_CSV, 1: board.set_Raw}
 		setFile[self.filetype.currentIndex()]()
 		
 		board.set_sample_rate(self.sample_rate.value())
@@ -86,8 +86,11 @@ class MyWidget(QtGui.QMainWindow, form_class):
 		start = self.start_time.dateTime().toPyDateTime()
 		end = self.end_time.dateTime().toPyDateTime()
 
-		start_unix =  time.mktime(start.timetuple())
-		end_unix = time.mktime(end.timetuple())
+		start_unix =  int(time.mktime(start.timetuple()))
+		end_unix = int(time.mktime(end.timetuple()))
+
+		print start_unix
+		print end_unix
 
 		board.set_scheduled_start(start_unix)
 		board.set_scheduled_end(end_unix)
