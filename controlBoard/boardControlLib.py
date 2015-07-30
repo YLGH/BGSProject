@@ -92,12 +92,12 @@ class BoardControlLib:
 
 	def set_Raw(self):
 		assert(not self.recording), "Can't change while recording!"
-		fileType = f.Binary(self.comm.send)
+		fileType = f.Binary(self.comm)
 		fileType.indicate()
 		
 	def set_CSV(self):
 		assert(not self.recording), "Can't change while recording!"
-		fileType = f.CSV(self.comm.send)
+		fileType = f.CSV(self.comm)
 		fileType.indicate()
 		
 	def get_firmware_string(self):

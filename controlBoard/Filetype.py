@@ -9,22 +9,19 @@ class Filetype:
 	def getTypeString(self):
 		return self.typeName
 
-
-
-
 class Binary(Filetype):
-	def __init__(self, spi):
+	def __init__(self, comm):
 		self.typeName = "Binary"
-		self.spi = spi
+		self.comm = comm
 
 	def indicate(self):
-		self.spi.xfer([0x08])
+		self.comm.send([0x08])
 
 
 class CSV(Filetype):
-	def __init__(self, spi):
+	def __init__(self, comm):
 		self.typeName = "CSV"
-		self.spi = spi
+		self.comm = comm
 
 	def indicate(self):
-		self.spi.xfer([0x09])
+		self.comm.send([0x09])
