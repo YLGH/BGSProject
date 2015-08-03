@@ -1,10 +1,10 @@
 from pyqtgraph.Qt import QtGui, QtCore
 import pyqtgraph as pg
 from collections import deque
-import spidev
 import threading
 import time
 import Sensor
+import boardControlLib as b
 
 
 class SensorDisplay:
@@ -13,8 +13,7 @@ class SensorDisplay:
 		#input is the maxDisplayTime in seconds
 		self.numSensors = 0
 
-		self.spi = spidev.SpiDev()
-		self.spi.open(0,0)
+		self.board = b.BoardControlLib("COM11")
 
 		maxlength = displayTime * 1000
 		self.data = [deque(maxlen=maxlength),deque(maxlen=maxlength),deque(maxlen=maxlength),deque(maxlen=maxlength)]
@@ -38,7 +37,7 @@ class SensorDisplay:
 				win.nextRow()
 
 			self.p1 = self.win.addPlot(title = graphTitle)
-			self.p1.setYRange(0, 4096) #default Y range
+			self.p1.setYRange(0, 65536) #default Y range
 			self.curve1 = self.p1.plot(pen = 'r')
 			self.numSensors += 1
 
@@ -106,19 +105,11 @@ class SensorDisplay:
 	def get_raw_sensor(self, index):
 		index -= 1
 		assert(self.sensorSet[i]), "This sensor has not been set yet!"
-
-		byteArray = self.spi.xfer([0x01])
-		byteArray = self.spi.xfer([0xff]*8)
-		return (byteArray[2*index] << 8) + byteArray[2*index+1]
+		return self.board.get_sensor_values()[index]
 	
 	def get_sensor(self, index):
 		index -= 1
-		byteArray = self.spi.xfer([0x01])
-		byteArray = self.spi.xfer([0xff]*8)
-		return self.voltageFunction[index]((byteArray[2*index] << 8) + byteArray[2*index+1])
-
-
-
+		return self.voltageFunction[index](self.board.get_sensor_values()[index])
 
 	def update(self):
 		if(self.sensorSet[0]):
@@ -134,11 +125,10 @@ class SensorDisplay:
 		ptr = 0
 		while True:
 			time.sleep(.0001)
-			byteArray = self.spi.xfer([0x01])#sending a "I need data bit"
-			byteArray = self.spi.xfer([0xff]*8) #retrieving the 8 bits
+			values = self.board.get_sensor_values()
 			for i in range(0, 4):
 				if(self.sensorSet[i]):
-					toAdd = (byteArray[(2*i)] << 8) + byteArray[(2*i)+1]
+					toAdd = values[i]
 					self.data[i].append(self.voltageFunction[i](toAdd))
 			self.qx.append(ptr)
 			ptr+=1

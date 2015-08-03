@@ -3,7 +3,7 @@ import time
 import datetime
 import calendar
 
-test = b.BoardControlLib()
+test = b.BoardControlLib("COM11")
 
 print "Board version:", test.get_firmware_string()
 
@@ -21,44 +21,51 @@ print "Sensor 2 enabled:", test.is_sensor_enabled(2)
 print "Sensor 3 enabled:", test.is_sensor_enabled(3)
 print "Sensor 4 enabled:", test.is_sensor_enabled(4)
 
+print "Current sensor values:"
+vals = test.get_sensor_values()
+print "Sensor 1: ", vals[0]
+print "Sensor 2: ", vals[1]
+print "Sensor 3: ", vals[2]
+print "Sensor 4: ", vals[3]
+
 #test.enable_scheduling()
 
-#print "Scheduling enabled:", test.is_scheduling_enabled()
-#
-#tm = datetime.datetime.utcfromtimestamp(test.get_scheduled_start())
-#print "Scheduling start:", tm.strftime("%Y-%m-%d %H:%M:%S")
-#tm = datetime.datetime.utcfromtimestamp(test.get_scheduled_end())
-#print "Scheduling end:", tm.strftime("%Y-%m-%d %H:%M:%S")
+print "Scheduling enabled:", test.is_scheduling_enabled()
 
-#tm = datetime.datetime.utcfromtimestamp(test.get_rtc_time())
-#print "RTC time:", tm.strftime("%Y-%m-%d %H:%M:%S")
+tm = datetime.datetime.utcfromtimestamp(test.get_scheduled_start())
+print "Scheduling start:", tm.strftime("%Y-%m-%d %H:%M:%S")
+tm = datetime.datetime.utcfromtimestamp(test.get_scheduled_end())
+print "Scheduling end:", tm.strftime("%Y-%m-%d %H:%M:%S")
+
+tm = datetime.datetime.utcfromtimestamp(test.get_rtc_time())
+print "RTC time:", tm.strftime("%Y-%m-%d %H:%M:%S")
 
 #print "Setting scheduling..."
 #test.set_scheduled_start(calendar.timegm((2015, 7, 26, 10, 1, 0)))
 #test.set_scheduled_end(calendar.timegm((2015, 7, 26, 10, 1, 30)))
 #test.enable_scheduling()
 
-print "Connecting to card..."
-if test.initialize_card():
-	print "Card ready"
+#print "Connecting to card..."
+#if test.initialize_card():
+#	print "Card ready"
 	
-	print "Switching to CSV Format..."
+#	print "Switching to CSV Format..."
 	
-	print "Logging .csv for 2 second at 5SPS..."
-	test.set_CSV()
-	test.set_Binary()
-	test.set_sample_rate(5)
-	test.start_logging()
-	time.sleep(2)
-	test.stop_logging()
-	print "Done!"
+#	print "Logging .csv for 2 second at 5SPS..."
+#	test.set_CSV()
+#	test.set_Binary()
+#	test.set_sample_rate(5)
+#	test.start_logging()
+#	time.sleep(2)
+#	test.stop_logging()
+#	print "Done!"
 	
-	print "Logging .bin for 4 seconds at 1000SPS..."
-	test.set_Binary()
-	test.set_sample_rate(1000)
-	test.start_logging()
-	time.sleep(4)
-	test.stop_logging()
-	print "Done!"
-else:
-	print "Card init failed!"
+#	print "Logging .bin for 4 seconds at 1000SPS..."
+#	test.set_Binary()
+#	test.set_sample_rate(1000)
+#	test.start_logging()
+#	time.sleep(4)
+#	test.stop_logging()
+#	print "Done!"
+#else:
+#	print "Card init failed!"

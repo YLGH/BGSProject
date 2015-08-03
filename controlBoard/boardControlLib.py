@@ -6,7 +6,7 @@ from math import floor
 class UARTComm:
 	def __init__(self, cport):
 		import serial
-		self.ser = serial.Serial(cport, 115200)
+		self.ser = serial.Serial(cport, 115200, timeout=2)
 	
 	def send(self, vals):
 		self.ser.write(vals)
@@ -47,6 +47,14 @@ class BoardControlLib:
 	
 	def recv(self, count):
 		return self.comm.recv(count)
+		
+	def get_sensor_values(self):
+		self.send([0x01])
+		out = []
+		for i in range(4):
+			val = self.recv(2)
+			out.append((val[0] << 8) | val[1])
+		return out
 		
 	def set_sensor_name(self, index, name_String):
 		assert(not self.recording), "Can't change while recording!"
