@@ -289,12 +289,32 @@
      <x>0</x>
      <y>0</y>
      <width>645</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <tabstops>
+  <tabstop>sensor_one_name</tabstop>
+  <tabstop>check_one</tabstop>
+  <tabstop>sensor_two_name</tabstop>
+  <tabstop>check_two</tabstop>
+  <tabstop>sensor_three_name</tabstop>
+  <tabstop>check_three</tabstop>
+  <tabstop>sensor_four_name</tabstop>
+  <tabstop>check_four</tabstop>
+  <tabstop>sample_rate</tabstop>
+  <tabstop>initialize_card_button</tabstop>
+  <tabstop>logging_button</tabstop>
+  <tabstop>file_save_button</tabstop>
+  <tabstop>save_setting_button</tabstop>
+  <tabstop>filetype</tabstop>
+  <tabstop>file_load_button</tabstop>
+  <tabstop>start_time</tabstop>
+  <tabstop>schedule_button</tabstop>
+  <tabstop>end_time</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
@@ -304,12 +324,12 @@
    <slot>display(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>270</x>
-     <y>225</y>
+     <x>271</x>
+     <y>269</y>
     </hint>
     <hint type="destinationlabel">
-     <x>496</x>
-     <y>242</y>
+     <x>494</x>
+     <y>269</y>
     </hint>
    </hints>
   </connection>

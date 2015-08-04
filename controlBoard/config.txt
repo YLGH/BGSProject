@@ -1,23 +1,27 @@
+#
+# Seismic Pi
+# Example Configuration file
+#
+
+
+# Comments are allowed on their own lines using a hash
+
+# Values are stored as key-value pairs separated by whitespace
+
 # Channel 1 settings
-
 channel_1_name		Geophone 1
-channel_1_enabled	true
-
+channel_1_enable
 
 # Channel 2 settings
+# Values may be up to 20-characters long
+channel_2_name		Contact Microphone 1
+channel_2_enable
 
-channel_2_name	Sensor 2
-channel_2_enabled	true
-
-
-# Disable other channels
-
-channel_3_enabled	true
-channel_4_enabled	true
+# Other channels are disabled by default
 
 
 # Set sample rate to be 1000
-
+# This value is the nearest integer to 100,000 / sample-rate
 sample_delay		100
 
 
@@ -28,5 +32,10 @@ file_format		raw
 
 # Enabled scheduling
 
-start_time		2015-07-26 12:36:00
-end_time		2015-07-26 12:36:30
+scheduling_enable
+start_time		2015-08-06 12:00:00
+end_time		2015-08-06 13:00:00
+
+
+# Unrecognised keys are ignored
+this_is_a_wrong_key	this is some value

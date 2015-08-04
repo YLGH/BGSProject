@@ -1,11 +1,11 @@
 import sys
 from PyQt4 import QtCore, QtGui, uic
-import boardControlLib2 as b
+import boardControlLib as b
 import time
 import configParse
 import datetime
 
-board = b.BoardControlLib2()
+board = b.BoardControlLib("COM11")
 
 form_class = uic.loadUiType("Settings.ui")[0]
 
@@ -24,9 +24,23 @@ class MyWidget(QtGui.QMainWindow, form_class):
 
 		self.start_time.setDateTime(datetime.datetime.now())
 		self.end_time.setDateTime(datetime.datetime.now())
-		self.start_time.setEnabled(False);
-		self.end_time.setEnabled(False);
-
+		self.start_time.setEnabled(False)
+		self.end_time.setEnabled(False)
+		
+		self.sensor_one_name.setText(board.get_sensor_name(1))
+		self.sensor_two_name.setText(board.get_sensor_name(2))
+		self.sensor_three_name.setText(board.get_sensor_name(3))
+		self.sensor_four_name.setText(board.get_sensor_name(4))
+		self.check_one.setChecked(board.is_sensor_enabled(1))
+		self.check_two.setChecked(board.is_sensor_enabled(2))
+		self.check_three.setChecked(board.is_sensor_enabled(3))
+		self.check_four.setChecked(board.is_sensor_enabled(4))
+		self.sample_rate.setValue(board.get_sample_rate())
+		self.filetype.setCurrentIndex(1 if board.get_file_format() == "Raw" else 0)
+		self.start_time.setEnabled(board.is_scheduling_enabled())
+		self.end_time.setEnabled(board.is_scheduling_enabled())
+		self.start_time.setDateTime(datetime.datetime.utcfromtimestamp(board.get_scheduled_start()))
+		self.end_time.setDateTime(datetime.datetime.utcfromtimestamp(board.get_scheduled_end()))
 
 	def initialize_handle(self):
 		print "Initializing"
@@ -56,10 +70,10 @@ class MyWidget(QtGui.QMainWindow, form_class):
 			self.start_time.setEnabled(False)
 			self.end_time.setEnabled(False)
 			print "Stop Scheduling"
-			self.schedule_button.setText("Start Schedulng")
+			self.schedule_button.setText("Start Scheduling")
 
 	def save_setting_handle(self):
-		setFile = {0: board.set_csv, 1: board.set_raw}
+		setFile = {0: board.set_CSV, 1: board.set_Raw}
 		setFile[self.filetype.currentIndex()]()
 		
 		board.set_sample_rate(self.sample_rate.value())
@@ -96,11 +110,13 @@ class MyWidget(QtGui.QMainWindow, form_class):
 		start = self.start_time.dateTime().toPyDateTime()
 		end = self.end_time.dateTime().toPyDateTime()
 
-		start_unix =  time.mktime(start.timetuple())
-		end_unix = time.mktime(end.timetuple())
+		start_unix =  int(time.mktime(start.timetuple()))
+		end_unix = int(time.mktime(end.timetuple()))
 
 		board.set_scheduled_start(start_unix)
 		board.set_scheduled_end(end_unix)
+		
+		board.save_settings()
 
 
 	def file_save_handle(self):
