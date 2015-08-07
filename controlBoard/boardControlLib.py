@@ -51,9 +51,14 @@ class BoardControlLib:
 	def get_sensor_values(self):
 		self.send([0x01])
 		out = []
+		val = self.recv(12)
 		for i in range(4):
-			val = self.recv(2)
-			out.append((val[0] << 8) | val[1])
+			tmp = (val[3*i] << 16) | (val[(3*i) + 1] << 8) | val[(3*i) + 2]
+			if tmp > 8388607:
+				tmp = (16777216 - tmp) * (-1)
+			out.append(tmp)
+		#print '\t'.join(map(str, map(int,val)))
+		#print out
 		return out
 		
 	def set_sensor_name(self, index, name_String):
@@ -196,8 +201,16 @@ class BoardControlLib:
 		self.send([0x27])
 		val = self.recv(4)
 		return (val[0]<<24) + (val[1]<<16) + (val[2]<<8) + val[3]
-		
-
+	
+	def set_gain(self, index, gain):
+		self.send([0x28])
+		self.send([2])
+		self.send([index-1, gain])
+	
+	def get_gain(self, index):
+		self.send([0x29])
+		val = self.recv(4)
+		return val[index-1]
 
 '''
 0x01: We want to retrieve the information on the four sensors
@@ -227,6 +240,8 @@ class BoardControlLib:
 0x25: Is scheduling enabled?
 0x26: Get scheduled start time
 0x27: Get scheduled end time
+0x28: Set channel gain - followed by which channel, then gain (1-32, powers of 2)
+0x29: Get channel gain
 '''
 
 

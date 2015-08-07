@@ -37,7 +37,7 @@ class SensorDisplay:
 				win.nextRow()
 
 			self.p1 = self.win.addPlot(title = graphTitle)
-			self.p1.setYRange(0, 65536) #default Y range
+			self.p1.setYRange(-8388608, 8388608) #default Y range
 			self.curve1 = self.p1.plot(pen = 'r')
 			self.numSensors += 1
 
@@ -49,7 +49,7 @@ class SensorDisplay:
 				self.win.nextRow()
 
 			self.p2 = self.win.addPlot(title = graphTitle)
-			self.p2.setYRange(0, 4096)
+			self.p2.setYRange(-8388608, 8388608)
 			self.curve2 = self.p2.plot(pen = 'g')
 			self.numSensors += 1
 
@@ -61,7 +61,7 @@ class SensorDisplay:
 				self.win.nextRow()
 
 			self.p3 = self.win.addPlot(title = graphTitle)
-			self.p3.setYRange(0, 4096)
+			self.p3.setYRange(-8388608, 8388608)
 			self.curve3 = self.p3.plot(pen = 'b')
 			self.numSensors += 1
 
@@ -73,7 +73,7 @@ class SensorDisplay:
 				self.win.nextRow()
 
 			self.p4 = self.win.addPlot(title = graphTitle)
-			self.p4.setYRange(0, 4096)
+			self.p4.setYRange(-8388608, 8388608)
 			self.curve4 = self.p4.plot(pen = 'y')
 			self.numSensors += 1
 
@@ -145,11 +145,3 @@ class SensorDisplay:
 		import sys
 		if (sys.flags.interactive != 1) or not hasattr(QtCore, 'PYQT_VERSION'):
 			QtGui.QApplication.instance().exec_()
-
-
-
-
-
-
-
-

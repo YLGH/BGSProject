@@ -21,6 +21,12 @@ print "Sensor 2 enabled:", test.is_sensor_enabled(2)
 print "Sensor 3 enabled:", test.is_sensor_enabled(3)
 print "Sensor 4 enabled:", test.is_sensor_enabled(4)
 
+print "Channel gains:"
+print "Sensor 1: ", str(test.get_gain(1)) + "x"
+print "Sensor 2: ", str(test.get_gain(2)) + "x"
+print "Sensor 3: ", str(test.get_gain(3)) + "x"
+print "Sensor 4: ", str(test.get_gain(4)) + "x"
+
 print "Current sensor values:"
 vals = test.get_sensor_values()
 print "Sensor 1: ", vals[0]

@@ -4,18 +4,27 @@ def double(x):
 	return 2*x;
 
 def voltToTemp(x):
-	return (((x*3.3)/4096.0) - 0.4)/0.01953; 
+	return (((x*3.3)/4096.0) - 0.4)/0.01953
 
+def to16bit(x):
+	return x >> 8
+	
 test = s.SensorDisplay()
-#test.add_sensor_three("Piezo Disk")
-#test.add_sensor_four("Geophone One")
-#test.setYRange_sensor_one(1900, 2500)
-test.add_sensor_one("Test");
-#test.add_sensor_two("S2");
-#test.add_Sensor_Two("Microphones")
-#test.add_Sensor_Three("TWANGER")
+test.add_sensor_one("Test")
+test.add_sensor_two("S2")
+test.add_sensor_three("TWANGER")
+test.add_sensor_four("Temperature")
+
+test.setYRange_sensor_one(-32768, 32768)
+test.setYRange_sensor_two(-32768, 32768)
+test.setYRange_sensor_three(-32768, 32768)
+test.setYRange_sensor_four(-32768, 32768)
+
+test.setVoltageFunction_sensor(1, to16bit)
+test.setVoltageFunction_sensor(2, to16bit)
+test.setVoltageFunction_sensor(3, to16bit)
+test.setVoltageFunction_sensor(4, to16bit)
 #test.setYRange_Sensor_Three(1900, 2000)
-#test.add_Sensor_Four("Temperature")
 #test.setYRange_Sensor_Three(20, 40)
 #test.setVoltageFunction_Sensor_One(double);
 #test.setVoltageFunction_Sensor_Three(voltToTemp)
