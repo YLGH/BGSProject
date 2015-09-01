@@ -9,11 +9,11 @@ import boardControlLib as b
 
 class SensorDisplay:
 
-	def __init__(self, displayTime = 2):
+	def __init__(self, comport, displayTime = 2):
 		#input is the maxDisplayTime in seconds
 		self.numSensors = 0
 
-		self.board = b.BoardControlLib("COM11")
+		self.board = b.BoardControlLib(comport)
 
 		maxlength = displayTime * 1000
 		self.data = [deque(maxlen=maxlength),deque(maxlen=maxlength),deque(maxlen=maxlength),deque(maxlen=maxlength)]
@@ -126,7 +126,9 @@ class SensorDisplay:
 		while True:
 			time.sleep(.0001)
 			values = self.board.get_sensor_values()
+			#values = self.board.get_accel_values()
 			for i in range(0, 4):
+			#for i in range(0, 3):
 				if(self.sensorSet[i]):
 					toAdd = values[i]
 					self.data[i].append(self.voltageFunction[i](toAdd))

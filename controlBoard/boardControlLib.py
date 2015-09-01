@@ -6,7 +6,7 @@ from math import floor
 class UARTComm:
 	def __init__(self, cport):
 		import serial
-		self.ser = serial.Serial(cport, 115200, timeout=2)
+		self.ser = serial.Serial(cport, 115200, timeout=10)
 	
 	def send(self, vals):
 		self.ser.write(vals)
@@ -14,18 +14,6 @@ class UARTComm:
 	def recv(self, count):
 		val = bytearray(self.ser.read(count))
 		return val
-
-class SPIComm:
-	def __init__(self):
-		import spidev
-		self.spi = spidev.SpiDev()
-		self.spi.open(0,0)
-	
-	def send(self, vals):
-		self.spi.xfer(vals)
-	
-	def recv(self, count):
-		return self.spi.xfer([0xff]*count)
 
 class BoardControlLib:
 
@@ -57,8 +45,6 @@ class BoardControlLib:
 			if tmp > 8388607:
 				tmp = (16777216 - tmp) * (-1)
 			out.append(tmp)
-		#print '\t'.join(map(str, map(int,val)))
-		#print out
 		return out
 		
 	def set_sensor_name(self, index, name_String):
@@ -211,6 +197,17 @@ class BoardControlLib:
 		self.send([0x29])
 		val = self.recv(4)
 		return val[index-1]
+	
+	def get_accel_values(self):
+		self.send([0x30])
+		val = self.recv(6)
+		out = []
+		for i in range(3):
+			out.append( (val[2*i] << 8) | val[(2*i)+1] )
+		return out
+	
+	def reset_processor(self):
+		self.send([0xf0])
 
 '''
 0x01: We want to retrieve the information on the four sensors
@@ -242,6 +239,9 @@ class BoardControlLib:
 0x27: Get scheduled end time
 0x28: Set channel gain - followed by which channel, then gain (1-32, powers of 2)
 0x29: Get channel gain
+0x30: Get accelerometer values
+
+0xF0: Reset processor in 2 seconds
 '''
 
 

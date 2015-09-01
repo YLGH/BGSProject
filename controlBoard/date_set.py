@@ -3,7 +3,11 @@ import sys
 import datetime
 import calendar
 
-board = b.BoardControlLib("COM11")
+if len(sys.argv)<2:
+	print "Usage: " + sys.argv[0] + " <port name>"
+	sys.exit(1)
+
+board = b.BoardControlLib(sys.argv[1])
 
 print
 print "Current board time:", datetime.datetime.utcfromtimestamp(board.get_rtc_time())
@@ -16,7 +20,8 @@ line = sys.stdin.readline()
 
 if line.strip() == "y":
 	print "Setting board time..."
-	board.set_rtc_time(calendar.timegm(datetime.datetime.now().timetuple()))
+	val = calendar.timegm(datetime.datetime.now().timetuple())
+	board.set_rtc_time(val)
 	print "Done!"
 else:
 	print "Aborting..."

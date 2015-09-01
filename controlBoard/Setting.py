@@ -5,7 +5,11 @@ import time
 import configParse
 import datetime
 
-board = b.BoardControlLib("COM11")
+if len(sys.argv)<2:
+	print "Usage: " + sys.argv[0] + " <port_name>"
+	sys.exit(1)
+
+board = b.BoardControlLib(sys.argv[1])
 
 form_class = uic.loadUiType("Settings.ui")[0]
 
