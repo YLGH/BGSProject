@@ -1,15 +1,13 @@
 import Filetype as f
-import Sensor as s
 import time
-from math import floor
 
 class UARTComm:
 	def __init__(self, cport):
 		import serial
-		self.ser = serial.Serial(cport, 115200, timeout=10)
+		self.ser = serial.Serial(cport, 115200, timeout=2)
 	
 	def send(self, vals):
-		self.ser.write(vals)
+		self.ser.write(bytearray(vals))
 	
 	def recv(self, count):
 		val = bytearray(self.ser.read(count))
@@ -17,18 +15,14 @@ class UARTComm:
 
 class BoardControlLib:
 
-	def __init__(self, cport=None):
+	def __init__(self, cport):
 
 		self.cardInitialized = False
 		self.recording = False
 
-		self.sensors = [s.Sensor(), s.Sensor(), s.Sensor(), s.Sensor()]
 		self.fileType = f.Filetype()
 
-		if cport is None:
-			self.comm = SPIComm()
-		else:
-			self.comm = UARTComm(cport)
+		self.comm = UARTComm(cport) # for now only serial is supported
 
 	def send(self, vals):
 		self.comm.send(vals)
