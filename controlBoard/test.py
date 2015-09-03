@@ -16,10 +16,10 @@ def to16bit(x):
 	return x >> 8
 	
 test = s.SensorDisplay(sys.argv[1])
-test.add_sensor_one("S1")
-test.add_sensor_two("S2")
-test.add_sensor_three("S3")
-test.add_sensor_four("S4")
+test.add_sensor_one("Geophone 1")
+#test.add_sensor_two("S2")
+#test.add_sensor_three("S3")
+#test.add_sensor_four("S4")
 
 #test.setYRange_sensor_one(0, 65536)
 #test.setYRange_sensor_two(0, 65536)
@@ -27,14 +27,14 @@ test.add_sensor_four("S4")
 #test.setYRange_sensor_four(0, 65536)
 
 test.setYRange_sensor_one(-32768, 32768)
-test.setYRange_sensor_two(-32768, 32768)
-test.setYRange_sensor_three(-32768, 32768)
-test.setYRange_sensor_four(-32768, 32768)
+#test.setYRange_sensor_two(-32768, 32768)
+#test.setYRange_sensor_three(-32768, 32768)
+#test.setYRange_sensor_four(-32768, 32768)
 
 test.setVoltageFunction_sensor(1, to16bit)
-test.setVoltageFunction_sensor(2, to16bit)
-test.setVoltageFunction_sensor(3, to16bit)
-test.setVoltageFunction_sensor(4, to16bit)
+#test.setVoltageFunction_sensor(2, to16bit)
+#test.setVoltageFunction_sensor(3, to16bit)
+#test.setVoltageFunction_sensor(4, to16bit)
 
 #test.setYRange_Sensor_Three(1900, 2000)
 #test.setYRange_Sensor_Three(20, 40)

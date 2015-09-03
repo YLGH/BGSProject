@@ -33,9 +33,6 @@ print "Accelerometer X enabled:", test.is_sensor_enabled(5)
 print "Accelerometer Y enabled:", test.is_sensor_enabled(6)
 print "Accelerometer Z enabled:", test.is_sensor_enabled(7)
 
-for i in range(1,5):
-	test.set_gain(i, 32)
-
 print "Channel gains:"
 print "Sensor 1: ", str(test.get_gain(1)) + "x"
 print "Sensor 2: ", str(test.get_gain(2)) + "x"
